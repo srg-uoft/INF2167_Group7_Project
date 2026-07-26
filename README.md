@@ -11,9 +11,9 @@ The data used in this project were obtained from https://data.tps.ca/datasets/To
 ## Repository Structure
 The repo is structured as:
 
-`data/01 - raw data` contains the raw data as downloaded from the Toronto Police Service
-`data/02 - analysis data` contains the dataset modified during the project
-`models` contains fitted models described in the report
-`paper` contains the Quarto files and BibTeX bibliography files used to generate the project proposal and final report documents, as well as rendered PDF versions of both documents
-`scripts` contains R script files used to clean data, generate visuals, and fit models
+`data/01 - raw data` contains the raw data as downloaded from the Toronto Police Service\
+`data/02 - analysis data` contains the dataset modified during the project\
+`models` contains fitted models described in the report\
+`paper` contains the Quarto files and BibTeX bibliography files used to generate the project proposal and final report documents, as well as rendered PDF versions of both documents\
+`scripts` contains R script files used to clean data, generate visuals, and fit models\
 `presentation` contains the Quarto file and BibTeX file used to generate the final presentation slideshow, as well as a rendered HTML version of the slideshow to use when presenting

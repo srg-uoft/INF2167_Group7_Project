@@ -190,3 +190,18 @@ collisions_cleaned |> # use the regular wide data since we want individual crash
     y = "Number of Accidents Responded To", 
     title = "Accidents Per Month from 2020-2026"
   )
+
+# figure as modified in class week 11
+# changes to visual 1
+##### none, ran out of time
+collisions_cleaned |> # use the regular wide data since we want individual crashes not individual vehicles involved in crashes
+  ggplot(aes(x = factor(occ_month, c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")), fill = as.factor(occ_month)))+
+  geom_bar()+
+  theme(axis.text.x = element_text(angle = 55, vjust = 0.9, hjust=1))+
+  scale_fill_manual(values = c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499", 
+                               "#44AA99", "#999933", "#882255", "#661100", "#6699CC", "#888888"), guide = "none")+
+  labs(
+    x = "Month",
+    y = "Number of Accidents Responded To", 
+    title = "Accidents Per Month from 2020-2026"
+  )

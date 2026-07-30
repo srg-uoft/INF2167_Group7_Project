@@ -37,7 +37,7 @@ bibliography: Presentation_References.bib
 - Discuss findings and what they may indicate
 
 ## Conclusion
-- Key takeaways from the project, including the broader implications or contributions of the work
+- Key takeaways from the project
 - Future research ideas
 
 ## References

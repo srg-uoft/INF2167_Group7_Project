@@ -65,11 +65,13 @@ collisions_long <- collisions_cleaned |>
 
 ########## Figure 1: Accidents Per Month by Mode of Transportation #############
 
+## create a separate dataframe that removes vehicle types not involved in crashes, then counts per vehicle type by month
 vehicle_counts_by_month <- collisions_long |>
   filter(involved_yesno == "YES") |>
   group_by(occ_month_num) |>
   count(vehicle_type)
 
+## make a faceted line plot to show temporal trends for each vehicle type
 vehicle_counts_by_month |>
   ggplot(
     aes(x = occ_month_num, y = n, color = vehicle_type)
@@ -111,11 +113,13 @@ vehicle_counts_by_month |>
 
 ########### Figure 2: Accidents Per Hour by Mode of Transportation #############
 
+## create a separate dataframe that removes vehicle types not involved in crashes, then counts per vehicle type by hour
 vehicle_counts_by_hour <- collisions_long |>
   filter(involved_yesno == "YES") |>
   group_by(occ_hour) |>
   count(vehicle_type)
 
+## make a faceted line plot to show temporal trends for each vehicle type
 vehicle_counts_by_hour |>
   ggplot(
     aes(x = occ_hour, y = n, color = vehicle_type)
@@ -155,11 +159,14 @@ vehicle_counts_by_hour |>
 
 ##### Figure 3: Accidents Per Day of the Week by Mode of Transportation ########
 
+## create a separate dataframe that removes vehicle types not involved in crashes, then counts per vehicle type by day of the week
 vehicle_counts_by_weekday <- collisions_long |>
   filter(involved_yesno == "YES") |>
   group_by(occ_dow_num) |>
   count(vehicle_type)
 
+
+## make a faceted line plot to show temporal trends for each vehicle type
 vehicle_counts_by_weekday |>
   ggplot(
     aes(x = occ_dow_num, y = n, color = vehicle_type)

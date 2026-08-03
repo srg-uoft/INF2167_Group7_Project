@@ -19,6 +19,7 @@ library(kableExtra)
 library(marginaleffects)
 library(broom)
 library(modelsummary)
+library(tinytable)
 
 ########################### Read In the Dataset ################################
 collisions <- read_csv(here("data/02 - analysis data", "working-data-2020-2026.csv"))
@@ -43,10 +44,6 @@ collisions_cleaned <- collisions |>
 collisions_cleaned <- collisions_cleaned |>
   clean_names()
 
-collisions_cleaned <- collisions_cleaned |>
-  left_join(dow_df, by = c("occ_dow" = "name")) |>
-  rename(occ_dow_num = number)
-
 ## dropping N/R and NA values
 collisions_modeling <- collisions_cleaned |>
   filter((automobile == "YES") | (automobile == "NO"))
@@ -61,7 +58,7 @@ collisions_modeling <- collisions_modeling |>
   mutate("pedestrian" = if_else(automobile == "YES", 1, 0))
 
 ############################ Estimate the Models ###############################
-car_model <- glm(bicycle ~ occ_month, data = collisions_modeling, family = binomial)
+car_model <- glm(automobile ~ occ_dow, data = collisions_modeling, family = binomial, maxit = 100)
 car_predictions <- predictions(car_model) |>
   as_tibble()
 head(car_predictions)

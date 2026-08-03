@@ -17,12 +17,17 @@ bibliography: Presentation_References.bib
 
 ## Introduction
 
-- Provide background on the topic
+Why is traffic system important?
+- Economic and social impacts
+- Urban areas face increasing collision risks
+- Data-driven analysis supports evidence-based planning
 
 ## Motivation
 
-- Introduce the main research question or problem
-- Explain why the project is important
+What temporal and spatial patterns exist in Toronto traffic collisions, and how do collision risks vary across different travel modes?
+- Study on Wujiang, China [@cite-wujiang] discovered high-risk spot at the connection with a major city, which is associated with high traffic volumes, ongoing construction projects, and high proportion of large trucks. 
+- Scientists in Iran [@cite-forecast] conducted a time series analysis in Zanjan Province for predicting the future morality in traffic, and the models shows a descending trend in traffic morality, associated with stricter traffic enforcement and education as time passed. 
+- Investigation on Toronto collision patterns supports evidence-based transportation planning and resource allocation
 
 ## Data
 

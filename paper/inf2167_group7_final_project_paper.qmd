@@ -64,7 +64,7 @@ we can probably re-use some things from the proposal introduction section for th
 ## Research Questions 
 *b.	Clearly state the research question(s) you investigated.*
 
-### What are the most accident-prone locations and times for travellers in the GTA, and how does that vary depending on mode of transportation?
+### What are the most accident-prone times for travelers in the GTA, and how does that vary depending on mode of transportation?
 
 The processed dataset allows us to compare risk profiles across modes, thanks to a indicator for involvements of different modes of travel.
 

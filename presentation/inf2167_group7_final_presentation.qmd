@@ -3,7 +3,7 @@ title: "Collision Frequency Trends for Various Vehicle Types in the Greater Toro
 subtitle: "INF2167 Project - Group 7"
 author: 
   - Stella Gregorski
-  - Yiying Qin
+  - Yiyang Qin
 format: 
   revealjs:
     slide-number: true
@@ -16,27 +16,34 @@ bibliography: Presentation_References.bib
 ---
 
 ## Introduction
+
 - Provide background on the topic
 
 ## Motivation
+
 - Introduce the main research question or problem
 - Explain why the project is important
 
 ## Data
+
 - Describe the data sources used
 - How the data were collected or constructed
 
 ## Methods
+
 - Methods or analytical approaches used to address the research question
 - This project used the R programming language [@cite-R] and the Here library [@cite-here] to do reproducible data analysis.
 
 ## Findings
+
 - Present the main results, patterns, or insights from the analysis
 
 ## Implications
+
 - Discuss findings and what they may indicate
 
 ## Conclusion
+
 - Key takeaways from the project
 - Future research ideas
 

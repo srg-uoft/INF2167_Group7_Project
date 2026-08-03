@@ -2,7 +2,7 @@
 # Purpose: A space for generating initial summary statistics and visuals for our  
 #           INF2167 project, as a draft space before deciding which blocks of
 #           code to run in the ultimate proposal/report
-# Author: Stella Gregorski, Yiying Qin
+# Author: Stella Gregorski, Yiyang Qin
 # Date: May-August 2026
 # Contact: stella.gregorski@mail.utoronto.ca
 # License: MIT

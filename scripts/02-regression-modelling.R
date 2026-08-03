@@ -1,8 +1,8 @@
 ################################### Preamble ###################################
 # Purpose: A space for cleaning data and using that data to run various models,
-#           in order to analyze temporal and geographic traffic collision trends
+#           in order to analyze temporal traffic collision trends
 #           within the Greater Toronto Area
-# Author: Stella Gregorski, Yiying Qin
+# Author: Stella Gregorski, Yiyang Qin
 # Date: May-August 2026
 # Contact: stella.gregorski@mail.utoronto.ca
 # License: MIT

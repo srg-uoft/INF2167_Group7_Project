@@ -3,7 +3,7 @@ title: "Collision Frequency Trends for Various Vehicle Types in the Greater Toro
 subtitle: "INF2167 Project - Group 7"
 author: 
   - Stella Gregorski
-  - Yiying Qin
+  - Yiyang Qin
 thanks: "Code and data are available at: [https://github.com/srg-uoft/Toronto_Vehicle_Collision_Frequency_Project](https://github.com/srg-uoft/Toronto_Vehicle_Collision_Frequency_Project)."
 date: today
 date-format: long

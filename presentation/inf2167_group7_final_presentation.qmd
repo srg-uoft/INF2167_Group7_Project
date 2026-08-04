@@ -9,6 +9,7 @@ format:
     slide-number: true
     pdf-separate-fragments: true
     theme: dracula
+    smaller: true
 editor: visual
 date: today
 date-format: long

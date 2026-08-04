@@ -27,27 +27,40 @@ Why is traffic system important?
 
 What temporal and spatial patterns exist in Toronto traffic collisions, and how do collision risks vary across different travel modes?
 
-- Study on Wujiang, China [@cite-wujiang] discovered high-risk spot at the connection with a major city, which is associated with high traffic volumes, ongoing construction projects, and high proportion of large trucks. 
-- Scientists in Iran [@cite-forecast] conducted a time series analysis in Zanjan Province for predicting the future morality in traffic, and the models shows a descending trend in traffic morality, associated with stricter traffic enforcement and education as time passed. 
+- Study on Wujiang, China [@cite-wujiang] discovered high-risk spot at the connection with a major city, which is associated with high traffic volumes, ongoing construction projects, and high proportion of large trucks.
+- Scientists in Iran [@cite-forecast] conducted a time series analysis in Zanjan Province for predicting the future morality in traffic, and the models shows a descending trend in traffic morality, associated with stricter traffic enforcement and education as time passed.
 - Investigation on Toronto collision patterns supports evidence-based transportation planning and resource allocation
 
 ## Data
 
-- Describe the data sources used
-- How the data were collected or constructed
+- The Toronto Police Service maintains data on traffic collisions they are called to respond to
+- This data includes attributes such as:
+  - **Month, Weekday, and Hour** when the collision took place
+  - **Neighbourhood** where the collision took place
+  - Binaries for whether five different types of vehicle were involved in the collision
+    - These include **Automobile, Passenger Vehicle (public transportation), Motorcycle, Bicycle, and Pedestrian**
+- We obtained this data from [@cite-tps] for the time frame 2020-2026
 
 ## Methods
 
-- Methods or analytical approaches used to address the research question
-- This project used the R programming language [@cite-R] and the Here library [@cite-here] to do reproducible data analysis.
+- This project used the R programming language [@cite-R] and the tidyverse library [@cite-tidyverse] to do reproducible data analysis.
+- Two primary steps were used to determine spatial and temporal trends in Toronto traffic collisions:
+  1. Exploratory Data Analysis and Statistical Visualization
+  2. Linear Regression Statistical Modeling
 
 ## Findings
 
-- Present the main results, patterns, or insights from the analysis
+- Collisions for all vehicle types are most frequent in the afternoon (from 13:00 - 17:00)
+- Collisions for motorized vehicles are more frequent in the winter, while bicycles and pedestrians are in more collisions during the summer
+- While spatial and temporal trends can be observed visually, they are not particularly well-correlated
+  - Residuals are centered around zero, but have observable patterns and a non-constant spread
+  - Adding vehicle type to the model worsened the correlation
 
 ## Implications
 
-- Discuss findings and what they may indicate
+- Rush hour and winter weather are primary indicators of collision frequency
+- We can temporally and spatially model collision risk, similar to prior research
+- Until we have more data on non-automobile collisions, trends in these types of accidents may remain less modelable
 
 ## Conclusion
 

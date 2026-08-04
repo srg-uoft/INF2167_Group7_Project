@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Stella Gregorski">
-  <meta name="author" content="Yiying Qin">
-  <meta name="dcterms.date" content="2026-07-20">
+  <meta name="author" content="Yiyang Qin">
+  <meta name="dcterms.date" content="2026-08-03">
   <title>Collision Frequency Trends for Various Vehicle Types in the Greater Toronto Area</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -162,67 +162,102 @@ Stella Gregorski
 </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Yiying Qin 
+Yiyang Qin 
 </div>
 </div>
 </div>
 
-  <p class="date">July 20, 2026</p>
+  <p class="date">August 3, 2026</p>
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
+<p>Why is traffic system important?</p>
 <ul>
-<li>Provide background on the topic</li>
+<li>Economic and social impacts</li>
+<li>Urban areas face increasing collision risks</li>
+<li>Data-driven analysis supports evidence-based planning</li>
 </ul>
 </section>
 <section id="motivation" class="slide level2">
 <h2>Motivation</h2>
+<p>What temporal and spatial patterns exist in Toronto traffic collisions, and how do collision risks vary across different travel modes?</p>
 <ul>
-<li>Introduce the main research question or problem</li>
-<li>Explain why the project is important</li>
+<li>Study on Wujiang, China <span class="citation" data-cites="cite-wujiang">(<a href="#/references" role="doc-biblioref" onclick="">Cheng et al. 2018</a>)</span> discovered high-risk spot at the connection with a major city, which is associated with high traffic volumes, ongoing construction projects, and high proportion of large trucks.</li>
+<li>Scientists in Iran <span class="citation" data-cites="cite-forecast">(<a href="#/references" role="doc-biblioref" onclick="">Yousefzadeh-Chabok et al. 2016</a>)</span> conducted a time series analysis in Zanjan Province for predicting the future morality in traffic, and the models shows a descending trend in traffic morality, associated with stricter traffic enforcement and education as time passed.</li>
+<li>Investigation on Toronto collision patterns supports evidence-based transportation planning and resource allocation</li>
 </ul>
 </section>
 <section id="data" class="slide level2">
 <h2>Data</h2>
 <ul>
-<li>Describe the data sources used</li>
-<li>How the data were collected or constructed</li>
+<li>The Toronto Police Service maintains data on traffic collisions they are called to respond to</li>
+<li>This data includes attributes such as:
+<ul>
+<li><strong>Month, Weekday, and Hour</strong> when the collision took place</li>
+<li><strong>Neighbourhood</strong> where the collision took place</li>
+<li>Binaries for whether five different types of vehicle were involved in the collision
+<ul>
+<li>These include <strong>Automobile, Passenger Vehicle (public transportation), Motorcycle, Bicycle, and Pedestrian</strong></li>
+</ul></li>
+</ul></li>
+<li>We obtained this data from <span class="citation" data-cites="cite-tps">(<a href="#/references" role="doc-biblioref" onclick="">Toronto Police Service 2023</a>)</span> for the time frame 2020-2026</li>
 </ul>
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
 <ul>
-<li>Methods or analytical approaches used to address the research question</li>
-<li>This project used the R programming language <span class="citation" data-cites="cite-R">(<a href="#/references" role="doc-biblioref" onclick="">R Core Team 2026</a>)</span> and the Here library <span class="citation" data-cites="cite-here">(<a href="#/references" role="doc-biblioref" onclick=""><em>A <span>Simpler</span> <span>Way</span> to <span>Find</span> <span>Your</span> <span>Files</span></em>, n.d.</a>)</span> to do reproducible data analysis.</li>
+<li>This project used the R programming language <span class="citation" data-cites="cite-R">(<a href="#/references" role="doc-biblioref" onclick="">R Core Team 2026</a>)</span> and the tidyverse library <span class="citation" data-cites="cite-tidyverse">(<a href="#/references" role="doc-biblioref" onclick="">Wickham et al. 2019</a>)</span> to do reproducible data analysis.</li>
+<li>Two primary steps were used to determine spatial and temporal trends in Toronto traffic collisions:
+<ol type="1">
+<li>Exploratory Data Analysis and Statistical Visualization</li>
+<li>Linear Regression Statistical Modeling</li>
+</ol></li>
 </ul>
 </section>
 <section id="findings" class="slide level2">
 <h2>Findings</h2>
 <ul>
-<li>Present the main results, patterns, or insights from the analysis</li>
+<li>Collisions for all vehicle types are most frequent in the afternoon (from 13:00 - 17:00)</li>
+<li>Collisions for motorized vehicles are more frequent in the winter, while bicycles and pedestrians are in more collisions during the summer</li>
+<li>While spatial and temporal trends can be observed visually, they are not particularly well-correlated
+<ul>
+<li>Residuals are centered around zero, but have observable patterns and a non-constant spread</li>
+<li>Adding vehicle type to the model worsened the correlation</li>
+</ul></li>
 </ul>
 </section>
 <section id="implications" class="slide level2">
 <h2>Implications</h2>
 <ul>
-<li>Discuss findings and what they may indicate</li>
+<li>Rush hour and winter weather are primary indicators of collision frequency</li>
+<li>We can temporally and spatially model collision risk, similar to prior research</li>
+<li>Until we have more data on non-automobile collisions, trends in these types of accidents may remain less modelable</li>
 </ul>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <ul>
-<li>Key takeaways from the project, including the broader implications or contributions of the work</li>
+<li>Key takeaways from the project</li>
 <li>Future research ideas</li>
 </ul>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-cite-here" class="csl-entry" role="listitem">
-<em>A <span>Simpler</span> <span>Way</span> to <span>Find</span> <span>Your</span> <span>Files</span></em>. n.d. Accessed June 18, 2026. <a href="https://here.r-lib.org/">https://here.r-lib.org/</a>.
+<div id="ref-cite-wujiang" class="csl-entry" role="listitem">
+Cheng, Zeyang, Zhenshan Zu, and Jian Lu. 2018. <span>“Traffic Crash Evolution Characteristic Analysis and Spatiotemporal Hotspot Identification of Urban Road Intersections.”</span> <em>Sustainability</em> 11 (1): 160. https://doi.org/<a href="https://doi.org/10.3390/su11010160">https://doi.org/10.3390/su11010160</a>.
 </div>
 <div id="ref-cite-R" class="csl-entry" role="listitem">
 R Core Team. 2026. <em>R: <span>A</span> <span>Language</span> and <span>Environment</span> for <span>Statistical</span> <span>Computing</span></em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-cite-tps" class="csl-entry" role="listitem">
+Toronto Police Service. 2023. <span>“Traffic <span>Collisions</span> <span>Open</span> <span>Data</span> (<span>ASR</span>-<span>T</span>-<span>TBL</span>-001).”</span> In <em>Public Safety Data Portal</em>. Toronto Police Service. <a href="https://data.tps.ca/datasets/TorontoPS::traffic-collisions-open-data-asr-t-tbl-001/about">https://data.tps.ca/datasets/TorontoPS::traffic-collisions-open-data-asr-t-tbl-001/about</a>.
+</div>
+<div id="ref-cite-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, et al. 2019. <span>“Welcome to the Tidyverse.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+<div id="ref-cite-forecast" class="csl-entry" role="listitem">
+Yousefzadeh-Chabok, Shahrokh, Fatemeh Ranjbar-Taklimie, Reza Malekpouri, and Alireza Razzaghi. 2016. <span>“A Time Series Model for Assessing the Trend and Forecasting the Road Traffic Accident Mortality.”</span> <em>Archives of Trauma Research</em> 5 (3): 160. https://doi.org/<a href="https://doi.org/10.5812/atr.36570">https://doi.org/10.5812/atr.36570</a>.
 </div>
 </div>
 

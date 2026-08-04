@@ -103,7 +103,6 @@ vehicle_counts_by_month |>
     subtitle = "Data Collected from 2020-2026",
   )
 
-
 ########### Figure 2: Accidents Per Hour by Mode of Transportation #############
 
 ## create a separate dataframe that removes vehicle types not involved in crashes, then counts per vehicle type by hour
@@ -131,7 +130,7 @@ vehicle_counts_by_hour |>
     strip.background = element_rect(colour = "black", fill = "lightgrey"),
     axis.title.y = element_text(size = 14, face = "bold"),
     axis.title.x = element_text(size = 14, face = "bold"),
-    axis.text = element_text(size = 11),
+    axis.text = element_text(size = 9),
     title = element_text(size = 22),
     plot.subtitle = element_text(size = 14),
     plot.caption = element_text(size = 14),

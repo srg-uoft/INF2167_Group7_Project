@@ -94,11 +94,33 @@ The raw data as obtained from [@cite-tps] was cleaned in a variety of ways befor
 
 ## Exploratory Data Analysis
 
-Initial exploratory data analysis was done in R [@cite-R] making heavy use of the Tidyverse library [@cite-tidyverse], with the goal of uncovering high-level trends and possible variables of interest for further analysis. To improve reproducibility, all filepaths were made relative using the Here package [@cite-here], and project contents were regularly revisioned to GitHub. 
+Initial exploratory data analysis (EDA) was done in R [@cite-R] making heavy use of the Tidyverse library [@cite-tidyverse], with the goal of uncovering high-level trends and possible variables of interest for further analysis. To improve reproducibility, all filepaths were made relative using the Here package [@cite-here], and project contents were regularly committed to GitHub for granular version control.
+
+The first EDA step was simply looking at the temporal and spatial data, to make sure that there were no obvious encoding errors, and that the values in our key variable columns made sense. This was done using R's unique() function on the columns *occ_hour* (hour the collision occured), *occ_dow* (day of the week the collision occurred), *occ_month* (month the collision occurred), and *neighbourhood* (Toronto neighbourhood where the collision occurred). While all the values in the temporal columns were encoded consistently and correctly, this did reveal that the *neighbourhood* column had an "NSA" value, representing a collision where no location was recorded. Using group_by() and mutate() to calculate the percentage of total collisions which occurred in each neighbourhood revealed that 17% of collisions did not have location data recorded. While this does not make reporting or statistical modelling impossible for spatial data, this is a limitation of the data, and it is worth noting that our conclusions may not be as reflective of our target population as they would have without this missing data. 
+
+Since the second part of our research question involves how spatial and temporal trends in collision frequency might change depending on mode of transportation, it was also important to look at the vehicle data available, to understand how it might be used and make sure there were no encoding errors. In the original dataframe, the five vehicle types *(automobile, bicycle, motorcycle, passenger (public transit), and pedestrian)* are reported as separate columns. Using the unique() function again revealed that within each of the 5 vehicle type columns, the value of each cell contains either "YES" or "NO" to indicate whether a vehicle of that type was involved in that collision. To better analyze vehicles that were actually involved in crashes, and also to adhere better to Tidy data principles [@cite-tidydata], R's pivot_longer() function was used to melt the vehicle type columns from the original dataframe into one column containing vehicle type (*vehicle_type*) and another containing the binary cell values (*involved_yesno*), thereby changing the observational unit from individual collisions to individual vehicles involved in collisions with five rows per collision. This long dataframe was then filtered to only vehicles marked "YES" so as to visualize and model vehicles involved in collisions. 
+
+Understanding the key variables to answering our research question, statistical visuals and summary tables were generated using the *ggplot2* library from [@city-tidyverse] and [@cite-kableExtra]. Selections from these that best contribute to answering the research question, as well as discussions on the limitations and implications of the trends revealed by these visuals, can be found in the later sections of this paper.
 
 ## Statistical Modeling - Linear Regression
 
-*b.	Discuss the methods and models you applied in your analysis. Please include notation for your model. *
+To better understand the relationship between collision frequency and the key temporal, spatial, and vehicle type variables described above, the final method employed in this paper will be linear regression modelling, using the key variables as predictors and number of collisions as an outcome variable. The model will take the form of the following notation:
+
+$$
+y = \beta_0 + \beta_1 x_1 + ... + \beta_n x_n + \varepsilon
+$$
+
+where $y$ is number of collisions (the outcome variable we are looking to predict), $\beta_0$ is the intercept (the number of collisions when all predictors equal zero), $\beta_n$ represents the change in number of collisions for a one-unit increase in the $n$ predictor, $x_n$ is the predictor in question, and $\varepsilon$ represents the residual error present in the model. This will be translated into R model syntax using the following code:
+
+```{r}
+#| eval: false
+#| echo: true
+model <- lm( ~ x_1 + ... + x_n, data = tps_collisions)
+```
+
+where y represents the number of collisions for a given combination of predictors, and x_1 through x_n are the used predictors. 
+
+The performance of any generated models will be reported and discussed further in the sections below.
 
 # Results & Findings
 *a.	Present the results of your analysis and provide clear interpretation. Include appropriate graphs, tables, or other visualizations.*

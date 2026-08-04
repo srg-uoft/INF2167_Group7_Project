@@ -20,47 +20,15 @@ abstract: "Provide a short (~150 word) abstract that includes the main problem y
 
 \newpage
 
-```{r}
-#| include: false
-#| warning: false
-#| message: false
-
-# set up our R environment for the report by importing all the libraries we will need
-library(tidyverse)
-library(here)
-library(janitor)
-
-# enable visual generation by importing the dataset
-collisions <- read_csv(here("data/02 - analysis data", "working-data-2020-2026.csv"))
-
-# enable further visual generation by making a long, tidy version of the data
-## rename some of the columns to make them easier to understand
-collisions_cleaned <- collisions |>
-  rename(INJURIES = INJURY_COLLISIONS) |>
-  rename(FAILURE_TO_REMAIN = FTR_COLLISIONS) |>
-  rename(PROPERTY_DAMAGE_OVER_2000 = PD_COLLISIONS) |>
-  rename(NEIGHBOURHOOD = NEIGHBOURHOOD_158)
-
-## changing column names to snake_case using janitor
-collisions_cleaned <- collisions_cleaned |>
-  clean_names()
-
-## make a long version of the data to pivot mode of transportation
-collisions_long <- collisions_cleaned |>
-  pivot_longer(
-    cols = c(automobile, motorcycle, passenger, bicycle, pedestrian), 
-    names_to = "vehicle_type", 
-    values_to = "involved_yesno"
-)
-```
-
 # Introduction
-## Project Overview 
-*a.	Provide an overview of your project, the data and methods, and main finding(s).*
-we can probably re-use some things from the proposal introduction section for this, but should make sure we modify it to discuss our methods and findings.
 
-## Research Questions 
-*b.	Clearly state the research question(s) you investigated.*
+## Project Overview
+
+*a. Provide an overview of your project, the data and methods, and main finding(s).* we can probably re-use some things from the proposal introduction section for this, but should make sure we modify it to discuss our methods and findings.
+
+## Research Questions
+
+*b. Clearly state the research question(s) you investigated.*
 
 ### What are the most accident-prone times for travelers in the GTA, and how does that vary depending on mode of transportation?
 
@@ -70,9 +38,9 @@ The processed dataset allows us to compare risk profiles across modes, thanks to
 
 Prior research frequently identifies holidays as high risk periods for collisions. By analyzing temporal patterns in the TPS dataset, we can test whether Toronto follows these broader trends or shows unique local patterns. This comparison helps contextualize Toronto’s traffic safety landscape within the wider literature on collision risk.
 
-## Hypotheses 
-*c.	Include any hypotheses and explain why these questions are of interest.*
-this will be important, since a feedback point we got on our proposal was that we needed to more clearly state our hypotheses
+## Hypotheses
+
+*c. Include any hypotheses and explain why these questions are of interest.* this will be important, since a feedback point we got on our proposal was that we needed to more clearly state our hypotheses
 
 # Relevant Literature
 
@@ -88,27 +56,25 @@ The Toronto Police Service (TPS) maintains a Public Safety Data Portal, where th
 
 Per [@cite-tpsdata], each row/observation in this dataset represents a single collision, and the columns/variables use identification variables to describe each collision in three ways: 1) where and when the collision occurred, 2) whether there were injuries, deaths, or property damage, and whether parties failed to remain at the scene, and 3) which types of vehicles were involved in the collision. To answer the question of where the highest risk of traffic collision for various modes of transportation is in the Greater Toronto Area, our primary variables of interest are the spatial and temporal variables (to determine where and when the most accidents occur), and the information about involved vehicles (to determine any diverging trends between modes of transportation).
 
-## Data Cleaning & Pre-Processing
+## Data Preparation: Cleaning & Pre-Processing
 
-The raw data as obtained from [@cite-tps] was cleaned in a variety of ways before analysis. This cleaning was done using using the programming language R [@cite-R] due to its powerful statistical and data-focused capabilities. To improve readability and minimize errors, several columns were renamed using more semantic language. As an example, the column "FTR_COLLISIONS," which contains information about whether one or more parties failed to remain at the collision site, was renamed to "FAILURE_TO_REMAIN," so this meaning is more plainly understandable. After renaming select columns, all columns were standardized to snake_case using the janitor library [@cite-janitor] to further improve consistency and cleanliness in the working data. Finally, two new columns were added to make statistical visualizations easier to generate for ordered temporal variables: a column named "occ_month_num" to represent the month names for each collision os numbers from 1-12 (January = 1, June = 6, etc.), and a similar column named "occ_month_dow" to represent the days of the week for each collision as numbers from 1-7 (Sunday = 1, Wednesday = 4, etc.).   
+The raw data as obtained from [@cite-tpsdata] was cleaned in a variety of ways before analysis. This cleaning was done using using the programming language R [@cite-R] due to its powerful statistical and data-focused capabilities. To improve readability and minimize errors, several columns were renamed using more semantic language. As an example, the column "FTR_COLLISIONS," which contains information about whether one or more parties failed to remain at the collision site, was renamed to "FAILURE_TO_REMAIN," so this meaning is more plainly understandable. After renaming select columns, all columns were standardized to snake_case using the janitor library [@cite-janitor] to further improve consistency and cleanliness in the working data. Finally, two new columns were added to make statistical visualizations easier to generate for ordered temporal variables: a column named "occ_month_num" to represent the month names for each collision os numbers from 1-12 (January = 1, June = 6, etc.), and a similar column named "occ_month_dow" to represent the days of the week for each collision as numbers from 1-7 (Sunday = 1, Wednesday = 4, etc.).
 
 ## Exploratory Data Analysis
 
 Initial exploratory data analysis (EDA) was done in R [@cite-R] making heavy use of the Tidyverse library [@cite-tidyverse], with the goal of uncovering high-level trends and possible variables of interest for further analysis. To improve reproducibility, all filepaths were made relative using the Here package [@cite-here], and project contents were regularly committed to GitHub for granular version control.
 
-The first EDA step was simply looking at the temporal and spatial data, to make sure that there were no obvious encoding errors, and that the values in our key variable columns made sense. This was done using R's unique() function on the columns *occ_hour* (hour the collision occured), *occ_dow* (day of the week the collision occurred), *occ_month* (month the collision occurred), and *neighbourhood* (Toronto neighbourhood where the collision occurred). While all the values in the temporal columns were encoded consistently and correctly, this did reveal that the *neighbourhood* column had an "NSA" value, representing a collision where no location was recorded. Using group_by() and mutate() to calculate the percentage of total collisions which occurred in each neighbourhood revealed that 17% of collisions did not have location data recorded. While this does not make reporting or statistical modelling impossible for spatial data, this is a limitation of the data, and it is worth noting that our conclusions may not be as reflective of our target population as they would have without this missing data. 
+The first EDA step was simply looking at the temporal and spatial data, to make sure that there were no obvious encoding errors, and that the values in our key variable columns made sense. This was done using R's unique() function on the columns *occ_hour* (hour the collision occured), *occ_dow* (day of the week the collision occurred), *occ_month* (month the collision occurred), and *neighbourhood* (Toronto neighbourhood where the collision occurred). While all the values in the temporal columns were encoded consistently and correctly, this did reveal that the *neighbourhood* column had an "NSA" value, representing a collision where no location was recorded. Using group_by() and mutate() to calculate the percentage of total collisions which occurred in each neighbourhood revealed that 17% of collisions did not have location data recorded. While this does not make reporting or statistical modelling impossible for spatial data, this is a limitation of the data, and it is worth noting that our conclusions may not be as reflective of our target population as they would have without this missing data.
 
-Since the second part of our research question involves how spatial and temporal trends in collision frequency might change depending on mode of transportation, it was also important to look at the vehicle data available, to understand how it might be used and make sure there were no encoding errors. In the original dataframe, the five vehicle types *(automobile, bicycle, motorcycle, passenger (public transit), and pedestrian)* are reported as separate columns. Using the unique() function again revealed that within each of the 5 vehicle type columns, the value of each cell contains either "YES" or "NO" to indicate whether a vehicle of that type was involved in that collision. To better analyze vehicles that were actually involved in crashes, and also to adhere better to Tidy data principles [@cite-tidydata], R's pivot_longer() function was used to melt the vehicle type columns from the original dataframe into one column containing vehicle type (*vehicle_type*) and another containing the binary cell values (*involved_yesno*), thereby changing the observational unit from individual collisions to individual vehicles involved in collisions with five rows per collision. This long dataframe was then filtered to only vehicles marked "YES" so as to visualize and model vehicles involved in collisions. 
+Since the second part of our research question involves how spatial and temporal trends in collision frequency might change depending on mode of transportation, it was also important to look at the vehicle data available, to understand how it might be used and make sure there were no encoding errors. In the original dataframe, the five vehicle types *(automobile, bicycle, motorcycle, passenger (public transit), and pedestrian)* are reported as separate columns. Using the unique() function again revealed that within each of the 5 vehicle type columns, the value of each cell contains either "YES" or "NO" to indicate whether a vehicle of that type was involved in that collision. To better analyze vehicles that were actually involved in crashes, and also to adhere better to Tidy data principles [@cite-tidydata], R's pivot_longer() function was used to melt the vehicle type columns from the original dataframe into one column containing vehicle type (*vehicle_type*) and another containing the binary cell values (*involved_yesno*), thereby changing the observational unit from individual collisions to individual vehicles involved in collisions with five rows per collision. This long dataframe was then filtered to only vehicles marked "YES" so as to visualize and model vehicles involved in collisions.
 
-Understanding the key variables to answering our research question, statistical visuals and summary tables were generated using the *ggplot2* library from [@city-tidyverse] and [@cite-kableExtra]. Selections from these that best contribute to answering the research question, as well as discussions on the limitations and implications of the trends revealed by these visuals, can be found in the later sections of this paper.
+Understanding the key variables to answering our research question, statistical visuals, and summary tables were generated using the *ggplot2* library from [@cite-tidyverse] and [@cite-kableExtra]. Selections from these that best contribute to answering the research question, as well as discussions on the limitations and implications of the trends revealed by these visuals, can be found in the later sections of this paper.
 
 ## Statistical Modeling - Linear Regression
 
 To better understand the relationship between collision frequency and the key temporal, spatial, and vehicle type variables described above, the final method employed in this paper will be linear regression modelling, using the key variables as predictors and number of collisions as an outcome variable. The model will take the form of the following notation:
 
-$$
-y = \beta_0 + \beta_1 x_1 + ... + \beta_n x_n + \varepsilon
-$$
+$$y = \beta_0 + \beta_1 x_1 + ... + \beta_n x_n + \varepsilon$$
 
 where $y$ is number of collisions (the outcome variable we are looking to predict), $\beta_0$ is the intercept (the number of collisions when all predictors equal zero), $\beta_n$ represents the change in number of collisions for a one-unit increase in the $n$ predictor, $x_n$ is the predictor in question, and $\varepsilon$ represents the residual error present in the model. This will be translated into R model syntax using the following code:
 
@@ -118,18 +84,70 @@ where $y$ is number of collisions (the outcome variable we are looking to predic
 model <- lm( ~ x_1 + ... + x_n, data = tps_collisions)
 ```
 
-where y represents the number of collisions for a given combination of predictors, and x_1 through x_n are the used predictors. 
+where y represents the number of collisions for a given combination of predictors, and x_1 through x_n are the used predictors.
 
-The performance of any generated models will be reported and discussed further in the sections below.
+Generated models will used built-in R modelling functionality [@cite-R], visualization capabilities from the broom package [@cite-broom], and summary functions from the modelsummary package [@cite-modelsummary]. The performance of any generated models will be reported and discussed further in the sections below.
 
 # Results & Findings
-*a.	Present the results of your analysis and provide clear interpretation. Include appropriate graphs, tables, or other visualizations.*
+
+Overall, when looking at spatial and temporal data for vehicles involved in collisions, we see similar trends across vehicle type for collision hour and location, but notably diverging trends for collision day-of-week and collision month. Summary statistics are presented in Figure 1, and temporal trends are elaborated on in more depth below. 
+
+![Hour, Day-of-Week, Month, and Neighbourhood with the Most Collisions for All Vehicle Types](figures/fig4_summary_table.png)
+
+## Afternoon Peak for All Vehicle Types
+
+Looking at Figure 2, we see that trends in collision frequency are similar across all five vehicle types. Overnight collisions (21:00 - 04:00) are low, before a sharp increase between 05:00-09:00. We then see a steady increase throughout late morning and afternoon, a daily high between 15:00 and 18:00, and then a steady decline through the evening for all vehicle types. While collisions frequency for automobiles is substantially higher than for other vehicle types (looking at the differeing y-axis scales for the various vehicle plots), the daily pattern remains the same.
+
+![Collisions Per Hour are Fairly Consistent Across Vehicle Types](figures/fig2_collisions_by_hour.png)
+
+## Weekday vs Weekend Trends
+
+Zooming out to look at trends per day of the week in Figure 3, there are two primary groups. Automobiles, bicycles, and pedestrians have low collision frequencies on weekend days (Saturday and Sunday) and higher numbers during the week, while motorcycles and public transit vehicles have more collisions clustered towards the end of the week and the weekend. Bicycles and pedestrians experience weekly peak collisions in the middle of the week (Tuesday - Thursday), while automobiles experience a steady increase throughout the week, a sharp peak on Friday, and then a sharp decrease during the weekend. Friday and Saturday are peak days for both motorcycles and public transit vehicles.
+
+![Automobile, Pedestrian, and Bicycles Have More Weekday Collisions, while Motorcycles and Public Transit Vehicles Have More Weekend Collisions](figures/fig3_collisions_by_dow.png)
+
+## Opposing Seasonal Trends
+
+Considering collisions per month across the year in Figure 4, similar to looking at day-of-week trends, two main patterns emerge. For bicycles and motorcycles, collisions sharply increase between April and May, stay high through September, and then drop sharply through the end of the year. However, for automobiles, pedestrians, and public transit vehicles, the opposite trend is true: collisions are at a yearly high towards the beginning of the year (for automobiles and public transit vehicles) or the end of the year (for pedestrians), see a sharp drop around April, and then steadily climb again to the end of the year. 
+
+![Bicycles and Motorcycles Experience Yearly Highes from April - August, While Automobiles/ Public Transit Vehicles, and Pedestrians Experience Yearly Lows](figures/fig1_collisions_by_month.png)
+
+## Modeling Spatial, Temporal, and Vehicle Type Relationships
+
+As mentioned above, linear regression models were run to better understand the relationships between the key variables to answering our research question. The first model, `overall_model`, was run using neighbourhood, hour, day-of-week, month, and vehicle type as predictors, attempting to predict the number of collisions that will happen in any combination of the predictor variables. The model as written in R syntax is:
+
+```{r}
+#| eval: false
+#| echo: true
+
+overall_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + 
+                      occ_hour + vehicle_type, data = overall_collisions)
+```
+
+The $R^2$ value for this model is **0.3241**. 
+
+The second model run, `minus_vt_model`, was run to investigate if model performance would improve if vehicle type were removed as a predictor. Since in the EDA phase we determined that a vast majority of vehicle data points in the long data frame were automobiles, having such a disproportionate predictor might be skewing the model. The second model as written in R syntax is:
+
+```{r}
+#| eval: false
+#| echo: true
+
+minus_vt_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow 
+                     + occ_hour, data = overall_collisions_minus_vt)
+```
+
+The $R^2$ value for this model is **0.5806**. 
+
+To evaluate the models and how well they fit the data side-by-side, Figure 5 plots the residual errors from both models versus their respective predictions. 
+
+![Residual Plots for Two Models, One Including Vehicle Type as a Predictor and One Excluding Vehicle Type](figures/compared_residuals.png)
 
 # Discussion
-*a.	Summarize your findings, discuss any limitations, and suggest possible areas for future research.*
 
 ## Findings & Implications
+
 ## Limitations
+
 ## Future Research
 
 # Conclusion

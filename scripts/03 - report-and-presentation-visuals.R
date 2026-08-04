@@ -254,14 +254,33 @@ sum_vehicle_counts_by_hour <- vehicle_counts_by_hour |>
     vehicle_type == "passenger" ~ "Public Transit Vehicle",
     vehicle_type == "pedestrian" ~ "Pedestrian"))
 
+# summary table for worst neighbourhood for each mode of transportation
+vehicle_counts_by_neighbourhood <- collisions_long |>
+  filter(involved_yesno == "YES") |>
+  filter(neighbourhood != "NSA") |>
+  group_by(neighbourhood) |>
+  count(vehicle_type)
+
+sum_vehicle_counts_by_neighbourhood <- vehicle_counts_by_neighbourhood |>
+  group_by(vehicle_type) |>
+  summarize(max_neighbourhood = first(neighbourhood[which(n == max(n))])) |>
+  mutate("vehicle_type" = case_when(
+    vehicle_type == "automobile" ~ "Automobile",
+    vehicle_type == "bicycle" ~ "Bicycle",
+    vehicle_type == "motorcycle" ~ "Motorcycle",
+    vehicle_type == "passenger" ~ "Public Transit Vehicle",
+    vehicle_type == "pedestrian" ~ "Pedestrian"))
+
 # join the summary tables together
 overall_max_summary <- sum_vehicle_counts_by_hour |>
   left_join(sum_vehicle_counts_by_weekday, by = c("vehicle_type" = "vehicle_type")) |>
   left_join(sum_vehicle_counts_by_month, by = c("vehicle_type" = "vehicle_type")) |>
+  left_join(sum_vehicle_counts_by_neighbourhood, by = c("vehicle_type" = "vehicle_type")) |>
   rename('Vehicle Type' = vehicle_type, 
          'Hour with Highest Number of Recorded Collisions' = max_hour,
          'Day of Week with Highest Number of Recorded Collisions' = max_weekday,
-         'Month with Highest Number of Recorded Collisions' = max_month)
+         'Month with Highest Number of Recorded Collisions' = max_month,
+         'Neighbourhood with Highest Number of Recorded Collisions' = max_neighbourhood)
 
 # print them nicely
 kable(overall_max_summary) |>

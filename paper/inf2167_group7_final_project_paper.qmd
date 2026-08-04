@@ -145,10 +145,22 @@ To evaluate the models and how well they fit the data side-by-side, Figure 5 plo
 # Discussion
 
 ## Findings & Implications
+- rush hour
+- winter weather versus only biking/motorcycle in summer
+- weekday more people are commuting
+- confirms research that collisions do have hotspots and are not random
+- trends do change by vehicle type, but the correlation is not strong enough to use as a predictor
+  - maybe better if we had more data from collisions involving non-car vehicles
 
 ## Limitations
+- mostly automobile data
+- only data severe enough to warrant police showing up
+- folks who don't want police there might not call and therefore are excluded
 
-## Future Research
+## Future Research Directions
+- better models
+- more focus on spatial data
+- look at accident severity too
 
 # Conclusion
 

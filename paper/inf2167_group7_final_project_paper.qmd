@@ -28,9 +28,7 @@ abstract: "Provide a short (~150 word) abstract that includes the main problem y
 # set up our R environment for the report by importing all the libraries we will need
 library(tidyverse)
 library(here)
-library(paletteer)
 library(janitor)
-library(taylor)
 
 # enable visual generation by importing the dataset
 collisions <- read_csv(here("data/02 - analysis data", "working-data-2020-2026.csv"))
@@ -86,22 +84,21 @@ Scholars consistently conclude that road traffic collisions cluster in both loca
 
 The Toronto Police Service (TPS) maintains a Public Safety Data Portal, where they regularly publish and update crime statistics datasets for the Greater Toronto Area. The data used in this analysis is the Traffic Collisions Open Data (ASR-T-TBL-001) dataset, obtained from [@cite-tpsdata] and licensed under the Open Government Licence – Ontario. A notable limitation is that only collisions where TPS were called to the scene are included in this dataset - if for any reason, the involved parties made a decision to not involve the police, their collision statistics will not be reported here.
 
-## Data Structure
+## Data Structure & Key Variables
 
-Per [@cite-tpsdata], each row/observation in this dataset represents a single collision, and the columns/variables use identification variables to describe each collision in three ways: 1) where and when the collision occurred, 2) whether there were injuries, deaths, or property damage, and whether parties failed to remain at the scene, and 3) which types of vehicles were involved in the collision.
+Per [@cite-tpsdata], each row/observation in this dataset represents a single collision, and the columns/variables use identification variables to describe each collision in three ways: 1) where and when the collision occurred, 2) whether there were injuries, deaths, or property damage, and whether parties failed to remain at the scene, and 3) which types of vehicles were involved in the collision. To answer the question of where the highest risk of traffic collision for various modes of transportation is in the Greater Toronto Area, our primary variables of interest are the spatial and temporal variables (to determine where and when the most accidents occur), and the information about involved vehicles (to determine any diverging trends between modes of transportation).
 
-## Dataset Key Variables
+## Data Cleaning & Pre-Processing
 
-To answer the question of where the highest risk of traffic collision for various modes of transportation is in the Greater Toronto Area, our primary variables of interest are the spatial and temporal variables (to determine where and when the most accidents occur), and the information about involved vehicles (to determine any diverging trends between modes of transportation).
+The raw data as obtained from [@cite-tps] was cleaned in a variety of ways before analysis. This cleaning was done using using the programming language R [@cite-R] due to its powerful statistical and data-focused capabilities. To improve readability and minimize errors, several columns were renamed using more semantic language. As an example, the column "FTR_COLLISIONS," which contains information about whether one or more parties failed to remain at the collision site, was renamed to "FAILURE_TO_REMAIN," so this meaning is more plainly understandable. After renaming select columns, all columns were standardized to snake_case using the janitor library [@cite-janitor] to further improve consistency and cleanliness in the working data. Finally, two new columns were added to make statistical visualizations easier to generate for ordered temporal variables: a column named "occ_month_num" to represent the month names for each collision os numbers from 1-12 (January = 1, June = 6, etc.), and a similar column named "occ_month_dow" to represent the days of the week for each collision as numbers from 1-7 (Sunday = 1, Wednesday = 4, etc.).   
 
-## Methods
+## Exploratory Data Analysis
+
+Initial exploratory data analysis was done in R [@cite-R] making heavy use of the Tidyverse library [@cite-tidyverse], with the goal of uncovering high-level trends and possible variables of interest for further analysis. To improve reproducibility, all filepaths were made relative using the Here package [@cite-here], and project contents were regularly revisioned to GitHub. 
+
+## Statistical Modeling - Linear Regression
 
 *b.	Discuss the methods and models you applied in your analysis. Please include notation for your model. *
-
-Initial exploratory data analysis was done using statistical programming language [@cite-R] and the Tidyverse library [@cite-tidyverse], with the goal of uncovering high-level trends and possible variables of interest for further analysis. Filepaths were made relative using the Here package [@cite-here] to improve reproducibility, data was cleaned using [@cite-janitor], and color palettes are courtesy of [@cite-paletteer] and [@cite-taylor].
-
-we will need to adjust this methods section from what it was in the proposal, so it reflects what we actually did, rather than what we plan to do
-we also need to include models per inessa's feedback on the proposal
 
 # Results & Findings
 *a.	Present the results of your analysis and provide clear interpretation. Include appropriate graphs, tables, or other visualizations.*

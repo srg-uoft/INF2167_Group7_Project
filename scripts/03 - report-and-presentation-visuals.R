@@ -1,7 +1,6 @@
 ################################### Preamble ###################################
 
-# Purpose: A space for bringing together the work done in scripts 01 and the models
-#           generated in script 02 to generate visuals for use in this project's
+# Purpose: A space for creating visuals for use in this project's
 #           report and presentation files.
 # Author: Stella Gregorski, Yiyang Qin
 # Date: May-August 2026
@@ -21,12 +20,6 @@ library(kableExtra)
 ########################### Read In the Dataset ################################
 
 collisions <- read_csv(here("data/02 - analysis data", "working-data-2020-2026.csv"))
-
-################### High-Level Goals (Delete Once Done) ########################
-
-## model visuals
-# 3x line graphs - predicted probabilities from models, time unit (3 of these, so 3 graphs) on x axis, predicted probability on y axis, type of transportation (aka model) as legend
-# 1x table with the transportation modes/models as columns, time units as rows, model accuracy as values. will involve grouping responses into an estimated binary to compare with the actual binary
 
 ####################### Cleaning & Prepping the Data ###########################
 
@@ -273,5 +266,3 @@ overall_max_summary <- sum_vehicle_counts_by_hour |>
 # print them nicely
 kable(overall_max_summary) |>
   kable_styling(latex_options = "striped")
-
-################## Figure 5: Model Predicted Probabilities #####################

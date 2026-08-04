@@ -1,4 +1,5 @@
 ################################### Preamble ###################################
+
 # Purpose: A space for cleaning data and using that data to run various models,
 #           in order to analyze temporal traffic collision trends
 #           within the Greater Toronto Area
@@ -20,6 +21,7 @@ library(marginaleffects)
 library(broom)
 library(modelsummary)
 library(tinytable)
+library(readr)
 
 ########################### Read In the Dataset ################################
 
@@ -49,59 +51,69 @@ collisions_long <- collisions_cleaned |>
 
 ########################## Prepare the Dataframes ##############################
 overall_collisions <- collisions_long |>
-  group_by(neighbourhood, occ_month, occ_dow, occ_hour) |>
+  group_by(neighbourhood, occ_month, occ_dow, occ_hour, vehicle_type) |>
   count() |>
   rename(number_of_collisions = n)
 
-automobile_collisions <- collisions_long |>
-  filter(vehicle_type == "automobile") |>
-  group_by(neighbourhood, occ_month, occ_dow, occ_hour) |>
-  count() |>
-  rename(number_of_collisions = n)
-
-bicycle_collisions <- collisions_long |>
-  filter(vehicle_type == "bicycle") |>
-  group_by(neighbourhood, occ_month, occ_dow, occ_hour) |>
-  count() |>
-  rename(number_of_collisions = n)
-
-motorcycle_collisions <- collisions_long |>
-  filter(vehicle_type == "motorcycle") |>
-  group_by(neighbourhood, occ_month, occ_dow, occ_hour) |>
-  count() |>
-  rename(number_of_collisions = n)
-
-pedestrian_collisions <- collisions_long |>
-  filter(vehicle_type == "pedestrian") |>
-  group_by(neighbourhood, occ_month, occ_dow, occ_hour) |>
-  count() |>
-  rename(number_of_collisions = n)
-
-passenger_collisions <- collisions_long |>
-  filter(vehicle_type == "passenger") |>
+overall_collisions_minus_vt <- collisions_long |>
   group_by(neighbourhood, occ_month, occ_dow, occ_hour) |>
   count() |>
   rename(number_of_collisions = n)
 
 ############################ Estimate the Models ###############################
 
-overall_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + occ_hour, data = overall_collisions)
+overall_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + occ_hour + vehicle_type, data = overall_collisions)
 summary(overall_model)
+# R^2 = 0.3241
 
-automobile_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + occ_hour, data = automobile_collisions)
-summary(automobile_model)
+minus_vt_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + occ_hour, data = overall_collisions_minus_vt)
+summary(minus_vt_model)
+# R^2 = 0.5806
 
-bicycle_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + occ_hour, data = bicycle_collisions)
-summary(bicycle_model)
+######################### Make Figures from Models #############################
 
-pedestrian_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + occ_hour, data = pedestrian_collisions)
-summary(pedestrian_model)
+## make both residuals plots
+plot1 <- augment(overall_model) |>
+  ggplot(aes(.fitted, .resid)) +
+  geom_point(colour = "#661100", alpha = .7) +
+  geom_hline(yintercept = 0, colour = "#FF4434", linetype = "dashed") +
+  theme_minimal() +
+  labs(
+    title = "Residuals from Modelling Collision Frequency \nwith Spatial, Temporal, and Vehicle Type Variables",
+    subtitle = "Vehicle Type Included in Predictors",
+    x = "Predicted Values",
+    y = "Residuals") +
+  theme(
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    axis.text = element_text(size = 11),
+    title = element_text(size = 22),
+    plot.subtitle = element_text(size = 14, face = "bold"),
+    panel.spacing.x = unit(2.63, "lines")
+  )
 
-passenger_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + occ_hour, data = passenger_collisions)
-summary(passenger_model)
+plot2 <- augment(minus_vt_model) |>
+  ggplot(aes(.fitted, .resid)) +
+  geom_point(colour = "#117733", alpha = .7) +
+  geom_hline(yintercept = 0, colour = "#00FF00", linetype = "dashed") +
+  theme_minimal() +
+  labs(
+    title = "Residuals from Modelling Collision Frequency \nwith Spatial and Temporal Variables",
+    subtitle = "Vehicle Type Excluded from Predictors",
+    x = "Predicted Values",
+    y = "Residuals") +
+  theme(
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    axis.text = element_text(size = 11),
+    title = element_text(size = 22),
+    plot.subtitle = element_text(size = 14, face = "bold"),
+    panel.spacing.x = unit(2.63, "lines")
+  )
 
-motorcycle_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + occ_hour, data = motorcycle_collisions)
-summary(motorcycle_model)
+## combine into one visual
+combined_plot <- plot1 + plot2 + plot_layout(ncol = 1)
+combined_plot
 
 ################################################################################
 ################################################################################

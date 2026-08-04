@@ -16,12 +16,8 @@
 library(tidyverse)
 library(here)
 library(janitor)
-library(kableExtra)
-library(marginaleffects)
 library(broom)
 library(modelsummary)
-library(tinytable)
-library(readr)
 
 ########################### Read In the Dataset ################################
 

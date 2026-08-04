@@ -18,6 +18,7 @@ library(here)
 library(janitor)
 library(broom)
 library(modelsummary)
+library(patchwork)
 
 ########################### Read In the Dataset ################################
 
@@ -80,11 +81,11 @@ plot1 <- augment(overall_model) |>
     x = "Predicted Values",
     y = "Residuals") +
   theme(
-    axis.title.y = element_text(size = 14),
-    axis.title.x = element_text(size = 14),
-    axis.text = element_text(size = 11),
-    title = element_text(size = 22),
-    plot.subtitle = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 10),
+    axis.title.x = element_text(size = 10),
+    axis.text = element_text(size = 9),
+    title = element_text(size = 16),
+    plot.subtitle = element_text(size = 12, face = "bold"),
     panel.spacing.x = unit(2.63, "lines")
   )
 
@@ -99,11 +100,11 @@ plot2 <- augment(minus_vt_model) |>
     x = "Predicted Values",
     y = "Residuals") +
   theme(
-    axis.title.y = element_text(size = 14),
-    axis.title.x = element_text(size = 14),
-    axis.text = element_text(size = 11),
-    title = element_text(size = 22),
-    plot.subtitle = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 10),
+    axis.title.x = element_text(size = 10),
+    axis.text = element_text(size = 9),
+    title = element_text(size = 16),
+    plot.subtitle = element_text(size = 12, face = "bold"),
     panel.spacing.x = unit(2.63, "lines")
   )
 

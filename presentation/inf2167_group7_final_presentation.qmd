@@ -67,7 +67,7 @@ What temporal and spatial patterns exist in Toronto traffic collisions, and how 
 
 Key Takeaways
 
-= Traffic collisions in Toronto exhibit clear temporal and seasonal patterns, with risks varying by travel mode.
+- Traffic collisions in Toronto exhibit clear temporal and seasonal patterns, with risks varying by travel mode.
 - Recent TPS data can effectively identify collision trends and high-risk periods.
 
 Future Research

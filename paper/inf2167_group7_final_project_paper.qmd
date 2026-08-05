@@ -44,7 +44,7 @@ Prior research frequently identifies holidays as high risk periods for collision
 
 # Relevant Literature
 
-Scholars consistently conclude that road traffic collisions cluster in both location and time, thus we are inspired on discovering when and where risk is highest in the GTA. A spatial analysis of road traffic injuries is conducted in the Greater Toronto Area [@Vaz2017GTA] using Moran’s I and Getis Ord Gi. The article concludes that collisions form statistically significant clusters rather than occurring randomly. Their results show that “Peel and Durham have the highest collision rate”, which reminds us of the importance to identify hotspots of collisions in different neiboughoods. This directly provides us preview on Toronto collisions by communities. Temporal patterns in collision risk are also documented already by scholars. An article compares crashes during statutory holidays and regular weekends in Alberta [@Anowar2013Holidays]. They find that severe collision occurrences are less than estimated. Certain days (especially major holidays) carry elevated collision risk, which inspires our interest in comparing GTA collision patterns to commonly recognized high risk days.
+Scholars consistently conclude that road traffic collisions cluster in both location and time, thus we are inspired on discovering when and where risk is highest in the GTA. A spatial analysis of road traffic injuries is conducted in the Greater Toronto Area [@Vaz2017GTA] using Moran’s I and Getis Ord Gi. The article concludes that collisions form statistically significant clusters rather than occurring randomly. Their results show that “Peel and Durham have the highest collision rate”, which reminds us of the importance to identify hotspots of collisions in different neighborhoods. This directly provides us preview on Toronto collisions by communities. Temporal patterns in collision risk are also documented already by scholars. An article compares crashes during statutory holidays and regular weekends in Alberta [@Anowar2013Holidays]. They find that severe collision occurrences are less than estimated. Certain days (especially major holidays) carry elevated collision risk, which inspires our interest in comparing GTA collision patterns to commonly recognized high risk days.
 
 # Dataset & Methods
 
@@ -68,7 +68,7 @@ The first EDA step was simply looking at the temporal and spatial data, to make 
 
 Since the second part of our research question involves how spatial and temporal trends in collision frequency might change depending on mode of transportation, it was also important to look at the vehicle data available, to understand how it might be used and make sure there were no encoding errors. In the original dataframe, the five vehicle types *(automobile, bicycle, motorcycle, passenger (public transit), and pedestrian)* are reported as separate columns. Using the unique() function again revealed that within each of the 5 vehicle type columns, the value of each cell contains either "YES" or "NO" to indicate whether a vehicle of that type was involved in that collision. To better analyze vehicles that were actually involved in crashes, and also to adhere better to Tidy data principles [@cite-tidydata], R's pivot_longer() function was used to melt the vehicle type columns from the original dataframe into one column containing vehicle type (*vehicle_type*) and another containing the binary cell values (*involved_yesno*), thereby changing the observational unit from individual collisions to individual vehicles involved in collisions with five rows per collision. This long dataframe was then filtered to only vehicles marked "YES" so as to visualize and model vehicles involved in collisions.
 
-Understanding the key variables to answering our research question, statistical visuals, and summary tables were generated using the *ggplot2* library from [@cite-tidyverse] and [@cite-kableExtra]. Selections from these that best contribute to answering the research question, as well as discussions on the limitations and implications of the trends revealed by these visuals, can be found in the later sections of this paper.
+Understanding the key variables to answering our research question, statistical visuals, and summary tables were generated using the *ggplot2* library from [@cite-tidyverse], the patchwork library [@cite-patchwork] for concatenated figures, and kableExtra [@cite-kableExtra] for clean tables. Selections from these that best contribute to answering the research question, as well as discussions on the limitations and implications of the trends revealed by these visuals, can be found in the later sections of this paper.
 
 ## Statistical Modeling - Linear Regression
 
@@ -126,7 +126,7 @@ overall_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow +
 
 The $R^2$ value for this model is **0.3241**. 
 
-The second model run, `minus_vt_model`, was run to investigate if model performance would improve if vehicle type were removed as a predictor. Since in the EDA phase we determined that a vast majority of vehicle data points in the long data frame were automobiles, having such a disproportionate predictor might be skewing the model. The second model as written in R syntax is:
+The second model, `minus_vt_model`, was run to investigate if model performance would improve if vehicle type were removed as a predictor. Since in the EDA phase we determined that a vast majority of vehicle data points in the long data frame were automobiles, having such a disproportionate predictor might be skewing the model. The second model as written in R syntax is:
 
 ```{r}
 #| eval: false
@@ -144,25 +144,25 @@ To evaluate the models and how well they fit the data side-by-side, Figure 5 plo
 
 # Discussion
 
-## Findings & Implications
-- rush hour
-- winter weather versus only biking/motorcycle in summer
-- weekday more people are commuting
-- confirms research that collisions do have hotspots and are not random
-- trends do change by vehicle type, but the correlation is not strong enough to use as a predictor
-  - maybe better if we had more data from collisions involving non-car vehicles
+## Findings
+
+Not only can we see from the results above that vehicle collisions in Toronto align with previous research and occur in temporal and spatial hotspots rather than at random, we can see that those trends do vary by type of vehicle. More accidents for year-round transit modes like automobiles and public transit vehicles happen during the winter, when winter weather makes road conditions more hazardous, while bicycles and motorcycles, which are used less frequently during the winter, record far more collisions over the summer. All modes of transportation experience sharp increases in collision frequencies during the morning rush hour, and hit their peaks during the afternoon rush hour, logically showing that more collisions occur when more vehicles are on the road. This also applies to week-wise data, with more accidents occurring during the week, when people are commuting. A surprising conclusion from this particular analysis was that public transit vehicles experience more collisions on the weekend, despite being a primary mode of commuting for many citizens. 
+
+Our modelling efforts were less effective, and revealed that while trends do change by vehicle type (as we saw by visualizing the data), vehicle type is not sufficiently correlated to collision temporal and spatial data to use it as a predictor for collision patterns. By removing vehicle type from our first model, we improved the $R^2$ value from $0.3241$ to $0.5806$, improving from being able to explain less than a third of variance in collision frequency to being able to explain over half. $0.5806$ is still not a particularly strong correlation, however, and we further see this in our residuals plots. While centered around zero, which we want to see in well-performing models, the residuals have obvious patterns and non-constant spread, which further indicates neither model is fitting the data well. Both of these indicators imply that vehicle type is not a strong predictor of collision frequency, irrespective of varying trends between vehicle types. 
 
 ## Limitations
-- mostly automobile data
-- only data severe enough to warrant police showing up
-- folks who don't want police there might not call and therefore are excluded
+
+The most objective limitation of this work as it pertains to our research question is that the dataset contains overwhelmingly automobile collision data. Over 350,000 automobile collisions were recorded, while public transit vehicles were under 50,000, and other modes of transportation did not even break 10,000. Even if vehicle type were an accurate predictor of accident frequency, given the varying hotspot locations and times identified in this analysis, fitting a model with vehicle type as a predictor would be challenging, when nearly all the data is automobile - the model has nothing to learn from. 
+
+Other limitations of this work are inherent to using data collected by a police service. Firstly, only collisions severe enough to warrant the police responding to the scene is recorded, meaning any collisions resolved without police involvement are not recorded, and we are not getting a full picture of Toronto collision stratification. Minor automobile collisions, and likely any bicycle-bicycle or bicycle-pedestrian collisions, may not warrant a call to the police, and therefore that data goes uncollected.
 
 ## Future Research Directions
-- better models
-- more focus on spatial data
-- look at accident severity too
+
+Improving on the modeling from this report, to potentially include both improve statistical models and trained machine learning models, could provide deeper insight into the temporal and spatial collision hotspots identified in this analysis, as well as further understanding as to how vehicle type influences those hotspots. Another avenue for future research which could help make this modeling more accurate is a stronger focus on spatial data. This analysis only briefly touched on spatial collision trends, because only one spatial variable was available within the data collected. However, with data about specific streets or intersections where collisions occur and features of those areas, stronger correlations might emerge between collision location and collision frequency. Finally, involving accident severity in future research would provide greater weight and importance to the patterns identified. While finding ways to reduce all forms of traffic collisions is valuable, identifying common traits among more severe collisions could better help ensure that when collisions do happen, all involved parties are able to walk away. 
 
 # Conclusion
+
+This analysis focused on identifying temporal and spatial trends in traffic collisions occurring within the Greater Toronto Area, and specifically whether those trends differed for different vehicle types. While modelling collision frequency with the data available had mixed results and a greater variety of predictors or values would be needed for improved modelling in future research, statistical analysis through visualization revealed that there are clearly identifiable temporal patterns in Toronto traffic collisions, such as during rush hour and hazardous winter weather, and spatial hotspots where collisions are more likely to occur. By aggregating the data used in this analysis with further spatial data, accident severity data, and any available data sources about non-automobile collisions, this work can have promising future implications for reducing traffic collision frequency and protecting travellers as they move about the Greater Toronto Area.
 
 \newpage
 

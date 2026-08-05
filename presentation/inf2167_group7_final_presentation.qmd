@@ -32,7 +32,9 @@ What temporal and spatial patterns exist in Toronto traffic collisions, and how 
 - Scientists in Iran [@cite-forecast] conducted a time series analysis in Zanjan Province for predicting the future morality in traffic, and the models shows a descending trend in traffic morality, associated with stricter traffic enforcement and education as time passed.
 - Investigation on Toronto collision patterns supports evidence-based transportation planning and resource allocation
 
-## Data
+# Data & Methods
+
+## Data Source & Structure
 
 - The Toronto Police Service maintains data on traffic collisions they are called to respond to
 - This data includes attributes such as:
@@ -42,26 +44,42 @@ What temporal and spatial patterns exist in Toronto traffic collisions, and how 
     - These include **Automobile, Passenger Vehicle (public transportation), Motorcycle, Bicycle, and Pedestrian**
 - Data collected between 2020 and 2026 was sourced from [@cite-tpsdata]
 
+## Data Cleaning & Pre-Processing
+
 ## Methods
 
 - This project used the R programming language [@cite-R] and the tidyverse library [@cite-tidyverse] to do reproducible data analysis.
 - Two primary steps were used to determine spatial and temporal trends in Toronto traffic collisions:
   1.  Exploratory Data Analysis and Statistical Visualization
   2.  Linear Regression Statistical Modeling
+  
+# Results
 
-## Findings
+## Hourly Trends
 
 - Collisions for all vehicle types are most frequent in the afternoon (from 13:00 - 17:00)
 - Collisions for motorized vehicles are more frequent in the winter, while bicycles and pedestrians are in more collisions during the summer
 - While spatial and temporal trends can be observed visually, they are not particularly well-correlated
   - Residuals are centered around zero, but have observable patterns and a non-constant spread
   - Adding vehicle type to the model worsened the correlation
+  
+## Weekly Trends
+
+## Monthly Trends
+
+## Spatial & Summary Trends
+
+## Modeling Results
+
+# Discussion
 
 ## Implications
 
 - Rush hour and winter weather are primary indicators of collision frequency
 - We can temporally and spatially model collision risk, similar to prior research
 - Until we have more data on non-automobile collisions, trends in these types of accidents may remain less modelable
+
+## Limitations
 
 ## Conclusion
 

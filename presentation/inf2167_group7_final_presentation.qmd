@@ -40,14 +40,14 @@ What temporal and spatial patterns exist in Toronto traffic collisions, and how 
   - **Neighbourhood** where the collision took place
   - Binaries for whether five different types of vehicle were involved in the collision
     - These include **Automobile, Passenger Vehicle (public transportation), Motorcycle, Bicycle, and Pedestrian**
-- We obtained this data from [@cite-tps] for the time frame 2020-2026
+- Data collected between 2020 and 2026 was sourced from [@cite-tpsdata]
 
 ## Methods
 
 - This project used the R programming language [@cite-R] and the tidyverse library [@cite-tidyverse] to do reproducible data analysis.
 - Two primary steps were used to determine spatial and temporal trends in Toronto traffic collisions:
-  1. Exploratory Data Analysis and Statistical Visualization
-  2. Linear Regression Statistical Modeling
+  1.  Exploratory Data Analysis and Statistical Visualization
+  2.  Linear Regression Statistical Modeling
 
 ## Findings
 

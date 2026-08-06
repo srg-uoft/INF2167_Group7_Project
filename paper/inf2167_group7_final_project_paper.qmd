@@ -81,7 +81,7 @@ where $y$ is number of collisions (the outcome variable we are looking to predic
 ```{r}
 #| eval: false
 #| echo: true
-model <- lm( ~ x_1 + ... + x_n, data = tps_collisions)
+model <- lm(y ~ x_1 + ... + x_n, data = tps_collisions)
 ```
 
 where y represents the number of collisions for a given combination of predictors, and x_1 through x_n are the used predictors.

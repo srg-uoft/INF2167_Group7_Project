@@ -79,7 +79,7 @@ Statistical visuals and summary tables were generated using the *ggplot2* librar
 ```{r}
 #| eval: false
 #| echo: true
-model <- lm( ~ x_1 + ... + x_n, data = tps_collisions)
+model <- lm(y ~ x_1 + ... + x_n, data = tps_collisions)
 ```
   
 # Results

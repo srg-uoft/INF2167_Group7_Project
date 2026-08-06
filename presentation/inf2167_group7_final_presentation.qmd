@@ -182,6 +182,7 @@ Key Takeaways
 - Recent TPS data can effectively identify collision trends and high-risk periods.
 
 Future Research
+
 - Incorporate additional variables such as weather and land use to improve explanatory power.
 - Explore more advanced spatial and spatiotemporal models to better capture collision hotspots.
 - Extend the analysis with additional years of data to evaluate long-term trends and the impact of future transportation policies.

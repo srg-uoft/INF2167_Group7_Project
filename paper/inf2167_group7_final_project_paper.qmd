@@ -154,7 +154,7 @@ Our modelling efforts were less effective, and revealed that while trends do cha
 
 The most objective limitation of this work as it pertains to our research question is that the dataset contains overwhelmingly automobile collision data. Over 350,000 automobile collisions were recorded, while public transit vehicles were under 50,000, and other modes of transportation did not even break 10,000. Even if vehicle type were an accurate predictor of accident frequency, given the varying hotspot locations and times identified in this analysis, fitting a model with vehicle type as a predictor would be challenging, when nearly all the data is automobile - the model has nothing to learn from. 
 
-Other limitations of this work are inherent to using data collected by a police service. Firstly, only collisions severe enough to warrant the police responding to the scene is recorded, meaning any collisions resolved without police involvement are not recorded, and we are not getting a full picture of Toronto collision stratification. Minor automobile collisions, and likely any bicycle-bicycle or bicycle-pedestrian collisions, may not warrant a call to the police, and therefore that data goes uncollected.
+Other limitations of this work are inherent to using data collected by a police service. Firstly, only collisions severe enough to warrant the police responding to the scene are recorded, meaning any collisions resolved without police involvement are not recorded, and we are not getting a full picture of Toronto collision stratification. Minor automobile collisions, and likely any bicycle-bicycle or bicycle-pedestrian collisions, may not warrant a call to the police, and therefore that data goes uncollected.
 
 ## Future Research Directions
 

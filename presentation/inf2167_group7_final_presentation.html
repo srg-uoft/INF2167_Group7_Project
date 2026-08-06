@@ -389,21 +389,47 @@ Yiyang Qin
 <h1>Discussion</h1>
 
 </section>
-<section id="implications" class="slide level2">
-<h2>Implications</h2>
+<section id="findings-exploratory-data-analysis" class="slide level2">
+<h2>Findings: Exploratory Data Analysis</h2>
 <ul>
-<li>Rush hour and winter weather are primary indicators of collision frequency</li>
-<li>We can temporally and spatially model collision risk, similar to prior research</li>
-<li>Until we have more data on non-automobile collisions, trends in these types of accidents may remain less modelable</li>
+<li>We can temporally and spatially model collision risk, similar to prior research
+<ul>
+<li>Data science on collision risk can help prevention measure development</li>
+</ul></li>
+<li>We do see variation in collision risk trends for different vehicle types</li>
+<li>All modes of transportation experience sharp increases in collision frequencies during the morning rush hour, and hit their peaks during the afternoon rush hour</li>
+<li>More accidents occur during the week, when people are commuting</li>
+<li>More accidents for year-round transit modes like automobiles and public transit vehicles happen during the winter
+<ul>
+<li>Bicycles and motorcycles, which are used less frequently during the winter, record far more collisions over the summer</li>
+</ul></li>
+</ul>
+</section>
+<section id="findings-modelling" class="slide level2">
+<h2>Findings: Modelling</h2>
+<ul>
 <li>While spatial and temporal trends can be observed visually, they are not particularly well-correlated
 <ul>
 <li>Residuals are centered around zero, but have observable patterns and a non-constant spread</li>
-<li>Adding vehicle type to the model worsened the correlation</li>
+<li>Removing vehicle type to the model nearly doubled the R<sup>2</sup></li>
 </ul></li>
+<li>More data on non-automobile collisions might be necessary to properly use vehicle type as a predictor</li>
 </ul>
 </section>
 <section id="limitations" class="slide level2">
 <h2>Limitations</h2>
+<ul>
+<li>Predominantly automobile collisions recorded
+<ul>
+<li>Over 350,000 automobile collisions were recorded, while public transit vehicles were under 50,000, and other modes of transportation did not even break 10,000</li>
+<li>Even if vehicle type were an accurate predictor of accident frequency, fitting a model with vehicle type as a predictor would be challenging</li>
+</ul></li>
+<li>Using data collected by a police service
+<ul>
+<li>Only collisions severe enough to warrant the police responding to the scene are recorded</li>
+<li>Involved parties might have any number of reasons for not wanting to involve the police</li>
+</ul></li>
+</ul>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>

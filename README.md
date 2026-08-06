@@ -14,5 +14,7 @@ The repo is structured as:
 - `data/01 - raw data` contains the raw data as downloaded from the Toronto Police Service
 - `data/02 - analysis data` contains the dataset modified during the project
 - `paper` contains the Quarto files and BibTeX bibliography files used to generate the project proposal and final report documents, as well as rendered PDF versions of both documents
+- `paper/figures` contains .png image files of all graphics found in the report
 - `scripts` contains R script files used to clean data, generate visuals, and fit models
 - `presentation` contains the Quarto file and BibTeX file used to generate the final presentation slideshow, as well as a rendered HTML version of the slideshow to use when presenting
+- `presentation/figures` contains .png image files of all graphics found in the presentation

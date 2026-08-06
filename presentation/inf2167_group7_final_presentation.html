@@ -328,6 +328,10 @@ Yiyang Qin
 </section>
 <section id="spatial-summary-trends" class="slide level2">
 <h2>Spatial &amp; Summary Trends</h2>
+<ul>
+<li>Wexford/Maryvale is a spatial hotspot for collisions</li>
+<li>Temporal variation observed in collision frequency for different vehicle types</li>
+</ul>
 
 <img data-src="figures/fig4_summary_table.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="hourly-trends" class="slide level2">
@@ -356,8 +360,28 @@ Yiyang Qin
 </ul>
 
 <img data-src="figures/fig1_collisions_by_month.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="modeling-results" class="slide level2">
-<h2>Modeling Results</h2>
+<section id="modeling-results-r2" class="slide level2">
+<h2>Modeling Results: R<sup>2</sup></h2>
+<p>The first model, <code>overall_model</code>, was run using neighbourhood, hour, day-of-week, month, and vehicle type as predictors, with number of collisions as the outcome variable:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>overall_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(number_of_collisions <span class="sc">~</span> neighbourhood <span class="sc">+</span> occ_month <span class="sc">+</span> occ_dow <span class="sc">+</span> </span>
+<span id="cb2-2"><a href=""></a>                      occ_hour <span class="sc">+</span> vehicle_type, <span class="at">data =</span> overall_collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>The <span class="math inline">\(R^2\)</span> value for this model is <strong>0.3241</strong>.</li>
+</ul>
+<p>The second model, <code>minus_vt_model</code>, was run to investigate if model performance would improve if vehicle type were removed as a predictor:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>minus_vt_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(number_of_collisions <span class="sc">~</span> neighbourhood <span class="sc">+</span> occ_month <span class="sc">+</span> occ_dow </span>
+<span id="cb3-2"><a href=""></a>                     <span class="sc">+</span> occ_hour, <span class="at">data =</span> overall_collisions_minus_vt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>The <span class="math inline">\(R^2\)</span> value for this model is <strong>0.5806</strong>.</li>
+</ul>
+</section>
+<section id="modeling-results-residuals" class="slide level2">
+<h2>Modeling Results: Residuals</h2>
+<p>To evaluate the models and how well they fit the data side-by-side, the residual errors from both models were plotted versus their respective predictions.</p>
 
 <img data-src="figures/compared_residuals.png" class="quarto-figure quarto-figure-center r-stretch"></section></section>
 <section>

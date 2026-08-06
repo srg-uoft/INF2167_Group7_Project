@@ -264,11 +264,11 @@ Yiyang Qin
 <li>The Toronto Police Service maintains data on traffic collisions they are called to respond to</li>
 <li>This data includes attributes such as:
 <ul>
-<li><strong>Month, Weekday, and Hour</strong> when the collision took place</li>
+<li><strong>Month</strong>, <strong>Weekday</strong>, and <strong>Hour</strong> when the collision took place</li>
 <li><strong>Neighbourhood</strong> where the collision took place</li>
 <li>Binaries for whether five different types of vehicle were involved in the collision
 <ul>
-<li>These include <strong>Automobile, Passenger Vehicle (public transportation), Motorcycle, Bicycle, and Pedestrian</strong></li>
+<li>These include <strong>Automobile</strong>, <strong>Passenger Vehicle (public transportation)</strong>, <strong>Motorcycle</strong>, <strong>Bicycle</strong>, and <strong>Pedestrian</strong></li>
 </ul></li>
 </ul></li>
 <li>Data collected between 2020 and 2026 was sourced from <span class="citation" data-cites="cite-tpsdata">(<a href="#/references" role="doc-biblioref" onclick="">Toronto Police Service 2023</a>)</span></li>
@@ -318,7 +318,7 @@ Yiyang Qin
 <li>This took the following form in <code>R</code> syntax:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>( <span class="sc">~</span> x_1 <span class="sc">+</span> ... <span class="sc">+</span> x_n, <span class="at">data =</span> tps_collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x_1 <span class="sc">+</span> ... <span class="sc">+</span> x_n, <span class="at">data =</span> tps_collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section>
 <section>
@@ -326,30 +326,40 @@ Yiyang Qin
 <h1>Results</h1>
 
 </section>
+<section id="spatial-summary-trends" class="slide level2">
+<h2>Spatial &amp; Summary Trends</h2>
+
+<img data-src="figures/fig4_summary_table.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="hourly-trends" class="slide level2">
 <h2>Hourly Trends</h2>
 <ul>
-<li>Collisions for all vehicle types are most frequent in the afternoon (from 13:00 - 17:00)</li>
-<li>Collisions for motorized vehicles are more frequent in the winter, while bicycles and pedestrians are in more collisions during the summer</li>
-<li>While spatial and temporal trends can be observed visually, they are not particularly well-correlated
-<ul>
-<li>Residuals are centered around zero, but have observable patterns and a non-constant spread</li>
-<li>Adding vehicle type to the model worsened the correlation</li>
-</ul></li>
+<li>Similar across all vehicle types</li>
+<li>Overnight collisions are low, with a sharp increase between <strong>05:00</strong> and <strong>09:00</strong></li>
+<li>Daily peak between <strong>15:00</strong> and <strong>18:00</strong></li>
 </ul>
-</section>
+
+<img data-src="figures/fig2_collisions_by_hour.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="weekly-trends" class="slide level2">
 <h2>Weekly Trends</h2>
-</section>
+<ul>
+<li><span style="color:#C4BC00;">Bicycles</span> and <span style="color:#EA6AFF;">pedestrians</span> experience peak collisions in the middle of the week</li>
+<li><span style="color:#F8766D;">Automobiles</span> experience a steady increase throughout the week, a sharp peak on Friday, and then a sharp decrease during the weekend</li>
+<li>Friday and Saturday are peak days for both <span style="color:#00C094;">motorcycles</span> and <span style="color:#00B6EB;">public transit</span></li>
+</ul>
+
+<img data-src="figures/fig3_collisions_by_dow.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="monthly-trends" class="slide level2">
 <h2>Monthly Trends</h2>
-</section>
-<section id="spatial-summary-trends" class="slide level2">
-<h2>Spatial &amp; Summary Trends</h2>
-</section>
+<ul>
+<li>For <span style="color:#C4BC00;">bicycles</span> and <span style="color:#00C094;">motorcycles</span>, most collisions occur between April and May</li>
+<li>For <span style="color:#F8766D;">automobiles</span>, <span style="color:#EA6AFF;">pedestrians</span>, and <span style="color:#00B6EB;">public transit vehicles</span>, collisions are at a yearly high towards the extremes of the year</li>
+</ul>
+
+<img data-src="figures/fig1_collisions_by_month.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="modeling-results" class="slide level2">
 <h2>Modeling Results</h2>
-</section></section>
+
+<img data-src="figures/compared_residuals.png" class="quarto-figure quarto-figure-center r-stretch"></section></section>
 <section>
 <section id="discussion" class="title-slide slide level1 center">
 <h1>Discussion</h1>
@@ -361,6 +371,11 @@ Yiyang Qin
 <li>Rush hour and winter weather are primary indicators of collision frequency</li>
 <li>We can temporally and spatially model collision risk, similar to prior research</li>
 <li>Until we have more data on non-automobile collisions, trends in these types of accidents may remain less modelable</li>
+<li>While spatial and temporal trends can be observed visually, they are not particularly well-correlated
+<ul>
+<li>Residuals are centered around zero, but have observable patterns and a non-constant spread</li>
+<li>Adding vehicle type to the model worsened the correlation</li>
+</ul></li>
 </ul>
 </section>
 <section id="limitations" class="slide level2">

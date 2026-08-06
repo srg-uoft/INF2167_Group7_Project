@@ -114,22 +114,61 @@ model <- lm(y ~ x_1 + ... + x_n, data = tps_collisions)
 
 ![](figures/fig1_collisions_by_month.png){fig-align="center"}
 
-## Modeling Results
+## Modeling Results: R^2^
+
+The first model, `overall_model`, was run using neighbourhood, hour, day-of-week, month, and vehicle type as predictors, with number of collisions as the outcome variable:
+
+```{r}
+#| eval: false
+#| echo: true
+
+overall_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow + 
+                      occ_hour + vehicle_type, data = overall_collisions)
+```
+
+- The $R^2$ value for this model is **0.3241**.\n\n 
+
+The second model, `minus_vt_model`, was run to investigate if model performance would improve if vehicle type were removed as a predictor:
+
+```{r}
+#| eval: false
+#| echo: true
+
+minus_vt_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow 
+                     + occ_hour, data = overall_collisions_minus_vt)
+```
+
+- The $R^2$ value for this model is **0.5806**.
+
+## Modeling Results: Residuals 
+
+To evaluate the models and how well they fit the data side-by-side, the residual errors from both models were plotted versus their respective predictions. 
 
 ![](figures/compared_residuals.png){fig-align="center"}
 
 # Discussion
 
-## Implications
+## Findings
 
-- Rush hour and winter weather are primary indicators of collision frequency
 - We can temporally and spatially model collision risk, similar to prior research
-- Until we have more data on non-automobile collisions, trends in these types of accidents may remain less modelable
+  - Data science on collision risk can help prevention measure development
+- We do see variation in collision risk trends for different vehicle types
+- All modes of transportation experience sharp increases in collision frequencies during the morning rush hour, and hit their peaks during the afternoon rush hour
+- More accidents occur during the week, when people are commuting
+- More accidents for year-round transit modes like automobiles and public transit vehicles happen during the winter
+  - Bicycles and motorcycles, which are used less frequently during the winter, record far more collisions over the summer
 - While spatial and temporal trends can be observed visually, they are not particularly well-correlated
   - Residuals are centered around zero, but have observable patterns and a non-constant spread
-  - Adding vehicle type to the model worsened the correlation
+  - Removing vehicle type to the model nearly doubled the R^2^
 
 ## Limitations
+
+- Predominantly automobile collisions recorded
+  - Over 350,000 automobile collisions were recorded, while public transit vehicles were under 50,000, and other modes of transportation did not even break 10,000
+  - Even if vehicle type were an accurate predictor of accident frequency, fitting a model with vehicle type as a predictor would be challenging
+- Using data collected by a police service
+  - Only collisions severe enough to warrant the police responding to the scene are recorded
+  - Involved parties might have any number of reasons for not wanting to involve the police
 
 ## Conclusion
 

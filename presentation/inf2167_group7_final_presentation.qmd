@@ -148,7 +148,7 @@ To evaluate the models and how well they fit the data side-by-side, the residual
 
 # Discussion
 
-## Findings
+## Findings: Exploratory Data Analysis
 
 - We can temporally and spatially model collision risk, similar to prior research
   - Data science on collision risk can help prevention measure development
@@ -157,9 +157,13 @@ To evaluate the models and how well they fit the data side-by-side, the residual
 - More accidents occur during the week, when people are commuting
 - More accidents for year-round transit modes like automobiles and public transit vehicles happen during the winter
   - Bicycles and motorcycles, which are used less frequently during the winter, record far more collisions over the summer
+  
+## Findings: Modelling
+
 - While spatial and temporal trends can be observed visually, they are not particularly well-correlated
   - Residuals are centered around zero, but have observable patterns and a non-constant spread
   - Removing vehicle type to the model nearly doubled the R^2^
+- More data on non-automobile collisions might be necessary to properly use vehicle type as a predictor
 
 ## Limitations
 

@@ -46,12 +46,41 @@ What temporal and spatial patterns exist in Toronto traffic collisions, and how 
 
 ## Data Cleaning & Pre-Processing
 
-## Methods
+- R [@cite-R] and the janitor package [@cite-janitor] were used to clean the data and optimize it for analysis
+- Several columns were renamed using more semantic language
+  - e.g. *"FTR_COLLISIONS"* renamed to *"FAILURE_TO_REMAIN"*
+- All-capitals column names standardized to snake_case using janitor's clean_names() function
+- Columns added for month_number (1-12, January - December) and dow_number (1-7, Sunday - Saturday) to simplify ordered temporal visualizations
 
-- This project used the R programming language [@cite-R] and the tidyverse library [@cite-tidyverse] to do reproducible data analysis.
-- Two primary steps were used to determine spatial and temporal trends in Toronto traffic collisions:
-  1.  Exploratory Data Analysis and Statistical Visualization
-  2.  Linear Regression Statistical Modeling
+## Methods: Exploratory Data Analysis
+
+This project used the R programming language [@cite-R] and the tidyverse library [@cite-tidyverse] to do reproducible data analysis. High level steps included:
+
+- Looking at the temporal, spatial, and vehicle type columns using `unique()` to check that all values make sense for the type of data being reported
+  - e.g. making sure that all values in the *occ_month* column contain month names, spelled correctly and consistently stylized
+- Using `group_by()` and `mutate()` to calculate the percentage of total collisions that happened in a given time frame or neighbourhood
+- Using the `pivot_longer()` function to melt the vehicle type columns from the original dataframe into one column containing vehicle type (*vehicle_type*) and another containing the binary cell values (*involved_yesno*)
+  - This long dataframe was then filtered to only rows with *"YES"* in the involved_yesno column
+  - This changes the observational unit from individual collisions to individual vehicles involved in collisions, with five rows per collision
+
+## Methods: Data Visualization
+
+Statistical visuals and summary tables were generated using the *ggplot2* library from [@cite-tidyverse], the patchwork library [@cite-patchwork] for concatenated figures, and kableExtra [@cite-kableExtra] for clean tables.
+
+- Line graphs help to understand temporal trends in collision frequency
+- Summary tables help to understand the most prominent spatial and temporal hotspots
+
+## Methods: Statistical Modeling
+
+- Linear regression of the form $y = \beta_0 + \beta_1 x_1 + ... + \beta_n x_n + \varepsilon$ was used to better understand the relationship between variables 
+- Temporal, spatial, and vehicle type variables were used as predictors, with collision frequency as the goal outcome variable
+- This took the following form in `R` syntax:
+
+```{r}
+#| eval: false
+#| echo: true
+model <- lm( ~ x_1 + ... + x_n, data = tps_collisions)
+```
   
 # Results
 

@@ -72,7 +72,7 @@ Understanding the key variables to answering our research question, statistical 
 
 ## Statistical Modeling - Linear Regression
 
-To better understand the relationship between collision frequency and the key temporal, spatial, and vehicle type variables described above, the final method employed in this paper will be linear regression modelling, using the key variables as predictors and number of collisions as an outcome variable. The model will take the form of the following notation:
+To better understand the relationship between collision frequency and the key temporal, spatial, and vehicle type variables described above, the final method employed in this paper will be linear regression modelling, using the key variables as predictors and number of collisions as an outcome variable. The model will take the following form:
 
 $$y = \beta_0 + \beta_1 x_1 + ... + \beta_n x_n + \varepsilon$$
 

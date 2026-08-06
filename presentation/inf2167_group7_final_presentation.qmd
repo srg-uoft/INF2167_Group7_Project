@@ -38,10 +38,10 @@ What temporal and spatial patterns exist in Toronto traffic collisions, and how 
 
 - The Toronto Police Service maintains data on traffic collisions they are called to respond to
 - This data includes attributes such as:
-  - **Month, Weekday, and Hour** when the collision took place
+  - **Month**, **Weekday**, and **Hour** when the collision took place
   - **Neighbourhood** where the collision took place
   - Binaries for whether five different types of vehicle were involved in the collision
-    - These include **Automobile, Passenger Vehicle (public transportation), Motorcycle, Bicycle, and Pedestrian**
+    - These include **Automobile**, **Passenger Vehicle (public transportation)**, **Motorcycle**, **Bicycle**, and **Pedestrian**
 - Data collected between 2020 and 2026 was sourced from [@cite-tpsdata]
 
 ## Data Cleaning & Pre-Processing
@@ -84,21 +84,39 @@ model <- lm(y ~ x_1 + ... + x_n, data = tps_collisions)
   
 # Results
 
+## Spatial & Summary Trends
+
+- Wexford/Maryvale is a spatial hotspot for collisions
+- Temporal variation observed in collision frequency for different vehicle types
+
+![](figures/fig4_summary_table.png){fig-align="center"}
+
 ## Hourly Trends
 
-- Collisions for all vehicle types are most frequent in the afternoon (from 13:00 - 17:00)
-- Collisions for motorized vehicles are more frequent in the winter, while bicycles and pedestrians are in more collisions during the summer
-- While spatial and temporal trends can be observed visually, they are not particularly well-correlated
-  - Residuals are centered around zero, but have observable patterns and a non-constant spread
-  - Adding vehicle type to the model worsened the correlation
-  
+- Similar across all vehicle types
+- Overnight collisions are low, with a sharp increase between **05:00** and **09:00**
+- Daily peak between **15:00** and **18:00**
+
+![](figures/fig2_collisions_by_hour.png){fig-align="center"}
+
 ## Weekly Trends
+
+- <span style="color:#C4BC00;">Bicycles</span> and <span style="color:#EA6AFF;">pedestrians</span> experience peak collisions in the middle of the week
+- <span style="color:#F8766D;">Automobiles</span> experience a steady increase throughout the week, a sharp peak on Friday, and then a sharp decrease during the weekend
+- Friday and Saturday are peak days for both <span style="color:#00C094;">motorcycles</span> and <span style="color:#00B6EB;">public transit</span>
+
+![](figures/fig3_collisions_by_dow.png){fig-align="center"}
 
 ## Monthly Trends
 
-## Spatial & Summary Trends
+- For <span style="color:#C4BC00;">bicycles</span> and <span style="color:#00C094;">motorcycles</span>, most collisions occur between April and May
+- For <span style="color:#F8766D;">automobiles</span>, <span style="color:#EA6AFF;">pedestrians</span>, and <span style="color:#00B6EB;">public transit vehicles</span>, collisions are at a yearly high towards the extremes of the year
+
+![](figures/fig1_collisions_by_month.png){fig-align="center"}
 
 ## Modeling Results
+
+![](figures/compared_residuals.png){fig-align="center"}
 
 # Discussion
 
@@ -107,6 +125,9 @@ model <- lm(y ~ x_1 + ... + x_n, data = tps_collisions)
 - Rush hour and winter weather are primary indicators of collision frequency
 - We can temporally and spatially model collision risk, similar to prior research
 - Until we have more data on non-automobile collisions, trends in these types of accidents may remain less modelable
+- While spatial and temporal trends can be observed visually, they are not particularly well-correlated
+  - Residuals are centered around zero, but have observable patterns and a non-constant spread
+  - Adding vehicle type to the model worsened the correlation
 
 ## Limitations
 

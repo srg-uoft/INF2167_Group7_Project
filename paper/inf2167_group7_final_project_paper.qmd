@@ -96,7 +96,7 @@ Overall, when looking at spatial and temporal data for vehicles involved in coll
 
 ## Afternoon Peak for All Vehicle Types
 
-Looking at Figure 2, we see that trends in collision frequency are similar across all five vehicle types. Overnight collisions (21:00 - 04:00) are low, before a sharp increase between 05:00-09:00. We then see a steady increase throughout late morning and afternoon, a daily high between 15:00 and 18:00, and then a steady decline through the evening for all vehicle types. While collisions frequency for automobiles is substantially higher than for other vehicle types (looking at the differeing y-axis scales for the various vehicle plots), the daily pattern remains the same.
+Looking at Figure 2, we see that trends in collision frequency are similar across all five vehicle types. Overnight collisions (21:00 - 04:00) are low, before a sharp increase between 05:00-09:00. We then see a steady increase throughout late morning and afternoon, a daily high between 15:00 and 18:00, and then a steady decline through the evening for all vehicle types. While collisions frequency for automobiles is substantially higher than for other vehicle types (looking at the differing y-axis scales for the various vehicle plots), the daily pattern remains the same.
 
 ![Collisions Per Hour are Fairly Consistent Across Vehicle Types](figures/fig2_collisions_by_hour.png)
 

@@ -74,7 +74,7 @@ Statistical visuals and summary tables were generated using the *ggplot2* librar
 
 - Linear regression of the form $y = \beta_0 + \beta_1 x_1 + ... + \beta_n x_n + \varepsilon$ was used to better understand the relationship between variables 
 - Temporal, spatial, and vehicle type variables were used as predictors, with collision frequency as the goal outcome variable
-- This took the following form in `R` syntax:
+- This took the following form in R syntax:
 
 ```{r}
 #| eval: false

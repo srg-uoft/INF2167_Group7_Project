@@ -24,7 +24,7 @@ abstract: "Provide a short (~150 word) abstract that includes the main problem y
 
 ## Project Overview
 
-*a. Provide an overview of your project, the data and methods, and main finding(s).* we can probably re-use some things from the proposal introduction section for this, but should make sure we modify it to discuss our methods and findings.
+As the economy in Toronto grows, it is significant to improve the efficiency and effectiveness of infrastructure to support the robust growth of the society; in which topic, the traffic system stands out. The foundation of a efficient traffic system is the safety of all residence involved, This study adopts a data-driven approach onto the latest traffic collision dataset from the Toronto Police Service (TPS). The dataset provides detailed collision records for the analysis of temporal and spatial patterns across different modes of travel. We will examine whether collision trends in Toronto are consistent with findings from previous research on high-risk travel periods and identify neighborhoods with elevated collision risks for different travel modes.
 
 ## Research Questions
 
@@ -44,7 +44,7 @@ Prior research frequently identifies holidays as high risk periods for collision
 
 # Relevant Literature
 
-Scholars consistently conclude that road traffic collisions cluster in both location and time, thus we are inspired on discovering when and where risk is highest in the GTA. A spatial analysis of road traffic injuries is conducted in the Greater Toronto Area [@Vaz2017GTA] using Moran’s I and Getis Ord Gi. The article concludes that collisions form statistically significant clusters rather than occurring randomly. Their results show that “Peel and Durham have the highest collision rate”, which reminds us of the importance to identify hotspots of collisions in different neighborhoods. This directly provides us preview on Toronto collisions by communities. Temporal patterns in collision risk are also documented already by scholars. An article compares crashes during statutory holidays and regular weekends in Alberta [@Anowar2013Holidays]. They find that severe collision occurrences are less than estimated. Certain days (especially major holidays) carry elevated collision risk, which inspires our interest in comparing GTA collision patterns to commonly recognized high risk days.
+Scholars worldwide focus on designing the most suitable system starting from investigating the spots with most collisions in their region. Study on Wujiang, China [] used a 3D model to map the data from 2016, and they found the trend between geometrical spot and the crash hotspots for resource allocation from local government. Scientists in Iran [] conducted a time series analysis in Zanjan Province for predicting the future morality in traffic, and the models shows a descending trend in traffic morality, associated with stricter traffic enforcement and education as time passed. When we put our attention back to Toronto, there are also different factors affecting the collision rate over time. [] During the strategic promotion of remote work, the collision rate dropped dramatically, meanwhile it kept dropping even if the government “re-opened” onsite works.
 
 # Dataset & Methods
 

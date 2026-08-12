@@ -20,27 +20,13 @@ abstract: "Provide a short (~150 word) abstract that includes the main problem y
 
 \newpage
 
+# Abstract
+
+This study analyzes Toronto Police Service (TPS) collision data to identify temporal and spatial patterns across five travel modes—automobiles, bicycles, motorcycles, public transit, and pedestrians. The dataset that includes only police reported incidents was cleaned in R to conduct temporal and vehicle type analysis with consistency. EDA show clear daily peaks during morning and afternoon rush hours, along with differences between weekday and weekends, The EDA also opposes seasonal trends between year round and warm weather travel modes. Linear regression models reveal that vehicle type is not a strong predictor, while temporal and spatial variables explain some variation in collision frequency. Limitations include missing location data and underrepresentation of non automobile collisions. The results highlight predictable collision hotspots and suggest future work incorporating richer spatial data and severity metrics to strengthen modeling and inform safety interventions.
+
 # Introduction
 
-## Project Overview
-
 As the economy in Toronto grows, it is significant to improve the efficiency and effectiveness of infrastructure to support the robust growth of the society; in which topic, the traffic system stands out. The foundation of a efficient traffic system is the safety of all residence involved, This study adopts a data-driven approach onto the latest traffic collision dataset from the Toronto Police Service (TPS). The dataset provides detailed collision records for the analysis of temporal and spatial patterns across different modes of travel. We will examine whether collision trends in Toronto are consistent with findings from previous research on high-risk travel periods and identify neighborhoods with elevated collision risks for different travel modes.
-
-## Research Questions
-
-*b. Clearly state the research question(s) you investigated.*
-
-### What are the most accident-prone times for travelers in the GTA, and how does that vary depending on mode of transportation?
-
-The processed dataset allows us to compare risk profiles across modes, thanks to a indicator for involvements of different modes of travel.
-
-### Does the GTA’s data align with pre-existing research on riskiest travel times?
-
-Prior research frequently identifies holidays as high risk periods for collisions. By analyzing temporal patterns in the TPS dataset, we can test whether Toronto follows these broader trends or shows unique local patterns. This comparison helps contextualize Toronto’s traffic safety landscape within the wider literature on collision risk.
-
-## Hypotheses
-
-*c. Include any hypotheses and explain why these questions are of interest.* this will be important, since a feedback point we got on our proposal was that we needed to more clearly state our hypotheses
 
 # Relevant Literature
 

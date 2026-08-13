@@ -7,7 +7,9 @@ author:
 thanks: "Code and data are available at: [https://github.com/srg-uoft/Toronto_Vehicle_Collision_Frequency_Project](https://github.com/srg-uoft/Toronto_Vehicle_Collision_Frequency_Project)."
 date: today
 date-format: long
-format: pdf
+format:
+  pdf:
+    fig-pos: "H"
 geometry:
       - inner=2.5cm
       - outer=2.5cm
@@ -15,7 +17,6 @@ geometry:
       - bottom=3.6cm
 number-sections: true
 bibliography: INF2167_Project_References.bib
-abstract: "Provide a short (~150 word) abstract that includes the main problem you investigated, your data and methods, findings, and contribution(s)."
 ---
 
 \newpage
@@ -76,27 +77,46 @@ Generated models will used built-in R modelling functionality [@cite-R], visuali
 
 # Results & Findings
 
-Overall, when looking at spatial and temporal data for vehicles involved in collisions, we see similar trends across vehicle type for collision hour and location, but notably diverging trends for collision day-of-week and collision month. Summary statistics are presented in Figure 1, and temporal trends are elaborated on in more depth below. 
+## Vehicle Type Analysis
 
-![Hour, Day-of-Week, Month, and Neighbourhood with the Most Collisions for All Vehicle Types](figures/fig4_summary_table.png)
+Before going into spatial and temporal trends, we first briefly look at how different vehicle types are represented in the dataset. From [@fig-numvehicles] below, we see that a vast, overwhelming majority of vehicles included in this dataset are automobiles.
 
-## Afternoon Peak for All Vehicle Types
+![A Vast Majority of Vehicles Recorded Are Automobiles (Cars)](figures/number_of_vehicles.png){#fig-numvehicles}
 
-Looking at Figure 2, we see that trends in collision frequency are similar across all five vehicle types. Overnight collisions (21:00 - 04:00) are low, before a sharp increase between 05:00-09:00. We then see a steady increase throughout late morning and afternoon, a daily high between 15:00 and 18:00, and then a steady decline through the evening for all vehicle types. While collisions frequency for automobiles is substantially higher than for other vehicle types (looking at the differing y-axis scales for the various vehicle plots), the daily pattern remains the same.
+Moving a level deeper and looking at what combinations of vehicles are involved in collisions ([@fig-combos]), we see that the automobile-heavy trend continues, with nearly 84% of collisions occuring between cars, with no other vehicle types involved. Another 11% occur between cars and public transit vehicles, with other combinations of the five vehicle types making up only small percentages of the overall data. 
 
-![Collisions Per Hour are Fairly Consistent Across Vehicle Types](figures/fig2_collisions_by_hour.png)
+::: {#fig-combos layout-ncol=2}
 
-## Weekday vs Weekend Trends
+![](figures/collision_combos_pt1.png)
 
-Zooming out to look at trends per day of the week in Figure 3, there are two primary groups. Automobiles, bicycles, and pedestrians have low collision frequencies on weekend days (Saturday and Sunday) and higher numbers during the week, while motorcycles and public transit vehicles have more collisions clustered towards the end of the week and the weekend. Bicycles and pedestrians experience weekly peak collisions in the middle of the week (Tuesday - Thursday), while automobiles experience a steady increase throughout the week, a sharp peak on Friday, and then a sharp decrease during the weekend. Friday and Saturday are peak days for both motorcycles and public transit vehicles.
+![](figures/collision_combos_pt2.png)
 
-![Automobile, Pedestrian, and Bicycles Have More Weekday Collisions, while Motorcycles and Public Transit Vehicles Have More Weekend Collisions](figures/fig3_collisions_by_dow.png)
+Nearly All Collisions Involve Only Cars or Cars and Public Transit Vehicles
+:::
 
-## Opposing Seasonal Trends
+## Temporal and Spatial Analysis
 
-Considering collisions per month across the year in Figure 4, similar to looking at day-of-week trends, two main patterns emerge. For bicycles and motorcycles, collisions sharply increase between April and May, stay high through September, and then drop sharply through the end of the year. However, for automobiles, pedestrians, and public transit vehicles, the opposite trend is true: collisions are at a yearly high towards the beginning of the year (for automobiles and public transit vehicles) or the end of the year (for pedestrians), see a sharp drop around April, and then steadily climb again to the end of the year. 
+Overall, when looking at spatial and temporal data for vehicles involved in collisions, we see similar trends across vehicle type for collision hour and location, but notably diverging trends for collision day-of-week and collision month. Summary statistics are presented in [@fig-sums], and temporal trends are elaborated on in more depth below.
 
-![Bicycles and Motorcycles Experience Yearly Highes from April - August, While Automobiles/ Public Transit Vehicles, and Pedestrians Experience Yearly Lows](figures/fig1_collisions_by_month.png)
+![Hour, Day-of-Week, Month, and Neighbourhood with the Most Collisions for All Vehicle Types](figures/fig4_summary_table.png){#fig-sums}
+
+### Afternoon Peak for All Vehicle Types
+
+Looking at [@fig-hourly], we see that trends in collision frequency are similar across all five vehicle types. Overnight collisions (21:00 - 04:00) are low, before a sharp increase between 05:00-09:00. We then see a steady increase throughout late morning and afternoon, a daily high between 15:00 and 18:00, and then a steady decline through the evening for all vehicle types. While collisions frequency for automobiles is substantially higher than for other vehicle types (looking at the differing y-axis scales for the various vehicle plots), the daily pattern remains the same.
+
+![Collisions Per Hour are Fairly Consistent Across Vehicle Types](figures/fig2_collisions_by_hour.png){#fig-hourly}
+
+### Weekday vs Weekend Trends
+
+Zooming out to look at trends per day of the week in [@fig-weekly], there are two primary groups. Automobiles, bicycles, and pedestrians have low collision frequencies on weekend days (Saturday and Sunday) and higher numbers during the week, while motorcycles and public transit vehicles have more collisions clustered towards the end of the week and the weekend. Bicycles and pedestrians experience weekly peak collisions in the middle of the week (Tuesday - Thursday), while automobiles experience a steady increase throughout the week, a sharp peak on Friday, and then a sharp decrease during the weekend. Friday and Saturday are peak days for both motorcycles and public transit vehicles.
+
+![Automobile, Pedestrian, and Bicycles Have More Weekday Collisions, while Motorcycles and Public Transit Vehicles Have More Weekend Collisions](figures/fig3_collisions_by_dow.png){#fig-weekly}
+
+### Opposing Seasonal Trends
+
+Considering collisions per month across the year in [@fig-monthly], similar to looking at day-of-week trends, two main patterns emerge. For bicycles and motorcycles, collisions sharply increase between April and May, stay high through September, and then drop sharply through the end of the year. However, for automobiles, pedestrians, and public transit vehicles, the opposite trend is true: collisions are at a yearly high towards the beginning of the year (for automobiles and public transit vehicles) or the end of the year (for pedestrians), see a sharp drop around April, and then steadily climb again to the end of the year.
+
+![Bicycles and Motorcycles Experience Yearly Highes from April - August, While Automobiles/ Public Transit Vehicles, and Pedestrians Experience Yearly Lows](figures/fig1_collisions_by_month.png){#fig-monthly}
 
 ## Modeling Spatial, Temporal, and Vehicle Type Relationships
 
@@ -110,9 +130,9 @@ overall_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow +
                       occ_hour + vehicle_type, data = overall_collisions)
 ```
 
-The $R^2$ value for this model is **0.3241**. 
+The $R^2$ value for this model is **0.3241**.
 
-The second model, `minus_vt_model`, was run to investigate if model performance would improve if vehicle type were removed as a predictor. Since in the EDA phase we determined that a vast majority of vehicle data points in the long data frame were automobiles, having such a disproportionate predictor might be skewing the model. The second model as written in R syntax is:
+With the data overwhelmingly containing automobile collisions, we wondered if the vehicle type variable might be throwing the model off, since the remaining vehicle types are so underrepresented and might not have sufficient data to generate meaningful correlations. Therefore, we ran a second model, `minus_vt_model`, to investigate if model performance would improve if vehicle type were removed as a predictor. Since in the EDA phase we determined that a vast majority of vehicle data points in the long data frame were automobiles, having such a disproportionate predictor might be skewing the model. The second model as written in R syntax is:
 
 ```{r}
 #| eval: false
@@ -122,29 +142,29 @@ minus_vt_model <- lm(number_of_collisions ~ neighbourhood + occ_month + occ_dow
                      + occ_hour, data = overall_collisions_minus_vt)
 ```
 
-The $R^2$ value for this model is **0.5806**. 
+The $R^2$ value for this model is **0.5806**.
 
-To evaluate the models and how well they fit the data side-by-side, Figure 5 plots the residual errors from both models versus their respective predictions. 
+To evaluate the models and how well they fit the data side-by-side, [@fig-residuals] plots the residual errors from both models versus their respective predictions.
 
-![Residual Plots for Two Models, One Including Vehicle Type as a Predictor and One Excluding Vehicle Type](figures/compared_residuals.png)
+![Residual Plots for Two Models, One Including Vehicle Type as a Predictor and One Excluding Vehicle Type](figures/compared_residuals.png){#fig-residuals}
 
 # Discussion
 
 ## Findings
 
-Not only can we see from the results above that vehicle collisions in Toronto align with previous research and occur in temporal and spatial hotspots rather than at random, we can see that those trends do vary by type of vehicle. More accidents for year-round transit modes like automobiles and public transit vehicles happen during the winter, when winter weather makes road conditions more hazardous, while bicycles and motorcycles, which are used less frequently during the winter, record far more collisions over the summer. All modes of transportation experience sharp increases in collision frequencies during the morning rush hour, and hit their peaks during the afternoon rush hour, logically showing that more collisions occur when more vehicles are on the road. This also applies to week-wise data, with more accidents occurring during the week, when people are commuting. A surprising conclusion from this particular analysis was that public transit vehicles experience more collisions on the weekend, despite being a primary mode of commuting for many citizens. 
+Not only can we see from the results above that vehicle collisions in Toronto align with previous research and occur in temporal and spatial hotspots rather than at random, we can see that those trends do vary by type of vehicle. More accidents for year-round transit modes like automobiles and public transit vehicles happen during the winter, when winter weather makes road conditions more hazardous, while bicycles and motorcycles, which are used less frequently during the winter, record far more collisions over the summer. All modes of transportation experience sharp increases in collision frequencies during the morning rush hour, and hit their peaks during the afternoon rush hour, logically showing that more collisions occur when more vehicles are on the road. This also applies to week-wise data, with more accidents occurring during the week, when people are commuting. A surprising conclusion from this particular analysis was that public transit vehicles experience more collisions on the weekend, despite being a primary mode of commuting for many citizens.
 
-Our modelling efforts were less effective, and revealed that while trends do change by vehicle type (as we saw by visualizing the data), vehicle type is not sufficiently correlated to collision temporal and spatial data to use it as a predictor for collision patterns. By removing vehicle type from our first model, we improved the $R^2$ value from $0.3241$ to $0.5806$, improving from being able to explain less than a third of variance in collision frequency to being able to explain over half. $0.5806$ is still not a particularly strong correlation, however, and we further see this in our residuals plots. While centered around zero, which we want to see in well-performing models, the residuals have obvious patterns and non-constant spread, which further indicates neither model is fitting the data well. Both of these indicators imply that vehicle type is not a strong predictor of collision frequency, irrespective of varying trends between vehicle types. 
+Our modelling efforts were less effective, and revealed that while trends do change by vehicle type (as we saw by visualizing the data), vehicle type is not sufficiently correlated to collision temporal and spatial data to use it as a predictor for collision patterns. By removing vehicle type from our first model, we improved the $R^2$ value from $0.3241$ to $0.5806$, improving from being able to explain less than a third of variance in collision frequency to being able to explain over half. $0.5806$ is still not a particularly strong correlation, however, and we further see this in our residuals plots. While centered around zero, which we want to see in well-performing models, the residuals have obvious patterns and non-constant spread, which further indicates neither model is fitting the data well. Both of these indicators imply that vehicle type is not a strong predictor of collision frequency, irrespective of varying trends between vehicle types.
 
 ## Limitations
 
-The most objective limitation of this work as it pertains to our research question is that the dataset contains overwhelmingly automobile collision data. Over 350,000 automobile collisions were recorded, while public transit vehicles were under 50,000, and other modes of transportation did not even break 10,000. Even if vehicle type were an accurate predictor of accident frequency, given the varying hotspot locations and times identified in this analysis, fitting a model with vehicle type as a predictor would be challenging, when nearly all the data is automobile - the model has nothing to learn from. 
+The most objective limitation of this work as it pertains to our research question is that the dataset contains overwhelmingly automobile collision data. Over 350,000 automobile collisions were recorded, while public transit vehicles were under 50,000, and other modes of transportation did not even break 10,000. Even if vehicle type were an accurate predictor of accident frequency, given the varying hotspot locations and times identified in this analysis, fitting a model with vehicle type as a predictor would be challenging, when nearly all the data is automobile - the model has nothing to learn from.
 
 Other limitations of this work are inherent to using data collected by a police service. Firstly, only collisions severe enough to warrant the police responding to the scene are recorded, meaning any collisions resolved without police involvement are not recorded, and we are not getting a full picture of Toronto collision stratification. Minor automobile collisions, and likely any bicycle-bicycle or bicycle-pedestrian collisions, may not warrant a call to the police, and therefore that data goes uncollected.
 
 ## Future Research Directions
 
-Improving on the modeling from this report, to potentially include both improve statistical models and trained machine learning models, could provide deeper insight into the temporal and spatial collision hotspots identified in this analysis, as well as further understanding as to how vehicle type influences those hotspots. Another avenue for future research which could help make this modeling more accurate is a stronger focus on spatial data. This analysis only briefly touched on spatial collision trends, because only one spatial variable was available within the data collected. However, with data about specific streets or intersections where collisions occur and features of those areas, stronger correlations might emerge between collision location and collision frequency. Finally, involving accident severity in future research would provide greater weight and importance to the patterns identified. While finding ways to reduce all forms of traffic collisions is valuable, identifying common traits among more severe collisions could better help ensure that when collisions do happen, all involved parties are able to walk away. 
+Improving on the modeling from this report, to potentially include both improve statistical models and trained machine learning models, could provide deeper insight into the temporal and spatial collision hotspots identified in this analysis, as well as further understanding as to how vehicle type influences those hotspots. Another avenue for future research which could help make this modeling more accurate is a stronger focus on spatial data. This analysis only briefly touched on spatial collision trends, because only one spatial variable was available within the data collected. However, with data about specific streets or intersections where collisions occur and features of those areas, stronger correlations might emerge between collision location and collision frequency. Finally, involving accident severity in future research would provide greater weight and importance to the patterns identified. While finding ways to reduce all forms of traffic collisions is valuable, identifying common traits among more severe collisions could better help ensure that when collisions do happen, all involved parties are able to walk away.
 
 # Conclusion
 

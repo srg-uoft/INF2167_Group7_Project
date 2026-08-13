@@ -36,7 +36,7 @@ Scholars worldwide focus on designing the most suitable system starting from inv
 
 ## Data Source
 
-The Toronto Police Service (TPS) maintains a Public Safety Data Portal, where they regularly publish and update crime statistics datasets for the Greater Toronto Area. The data used in this analysis is the Traffic Collisions Open Data (ASR-T-TBL-001) dataset, obtained from [@cite-tpsdata] and licensed under the Open Government Licence – Ontario. A notable limitation is that only collisions where TPS were called to the scene are included in this dataset - if for any reason, the involved parties made a decision to not involve the police, their collision statistics will not be reported here.
+The Toronto Police Service (TPS) maintains a Public Safety Data Portal, where they regularly publish and update crime statistics datasets for the Greater Toronto Area. The data used in this analysis is the Traffic Collisions Open Data (ASR-T-TBL-001) dataset, obtained from [@cite-tpsdata] and licensed under the Open Government Licence – Ontario. It was downloaded on Wednesday, June 17, 2026 at 7:57PM, and covers collisions responded to by TPS from January 1, 2020 through to March 31, 2026. A notable limitation is that only collisions where TPS were called to the scene are included in this dataset - if for any reason, the involved parties made a decision to not involve the police, their collision statistics will not be reported here.
 
 ## Data Structure & Key Variables
 

@@ -16,6 +16,7 @@ library(tidyverse)
 library(here)
 library(janitor)
 library(kableExtra)
+library(patchwork)
 
 ########################### Read In the Dataset ################################
 
@@ -284,3 +285,65 @@ overall_max_summary <- sum_vehicle_counts_by_hour |>
 # print them nicely
 kable(overall_max_summary) |>
   kable_styling(latex_options = "striped")
+
+##### Figure 5: Summary Table of Types of Vehicles Involved in Collisions ######
+
+# add a new column which details the types of vehicles involved
+collisions_cleaned <- collisions_cleaned |>
+  mutate("vehicles_involved" = case_when(
+    ((is.na(automobile)) | (is.na(bicycle)) | (is.na(pedestrian)) | (is.na(motorcycle)) | (is.na(passenger))) ~ "NA",
+    ((automobile == "YES") & (bicycle == "NO") & (pedestrian == "NO") & (motorcycle == "NO") & (passenger == "NO")) ~ "Automobile - Automobile",
+    ((automobile == "NO") & (bicycle == "YES") & (pedestrian == "NO") & (motorcycle == "NO") & (passenger == "NO")) ~ "Bicycle - Bicycle",
+    ((automobile == "NO") & (bicycle == "NO") & (pedestrian == "YES") & (motorcycle == "NO") & (passenger == "NO")) ~ "Pedestrian - Pedestrian",
+    ((automobile == "NO") & (bicycle == "NO") & (pedestrian == "NO") & (motorcycle == "YES") & (passenger == "NO")) ~ "Motorcycle - Motorcycle",
+    ((automobile == "NO") & (bicycle == "NO") & (pedestrian == "NO") & (motorcycle == "NO") & (passenger == "YES")) ~ "Public Transit - Public Transit",
+    ((automobile == "YES") & (bicycle == "YES") & (pedestrian == "NO") & (motorcycle == "NO") & (passenger == "NO")) ~ "Automobile - Bicycle",
+    ((automobile == "YES") & (bicycle == "NO") & (pedestrian == "YES") & (motorcycle == "NO") & (passenger == "NO")) ~ "Automobile - Pedestrian",
+    ((automobile == "YES") & (bicycle == "NO") & (pedestrian == "NO") & (motorcycle == "YES") & (passenger == "NO")) ~ "Automobile - Motorcycle",
+    ((automobile == "YES") & (bicycle == "NO") & (pedestrian == "NO") & (motorcycle == "NO") & (passenger == "YES")) ~ "Automobile - Public Transit",
+    ((automobile == "NO") & (bicycle == "YES") & (pedestrian == "YES") & (motorcycle == "NO") & (passenger == "NO")) ~ "Bicycle - Pedestrian",
+    ((automobile == "NO") & (bicycle == "YES") & (pedestrian == "NO") & (motorcycle == "YES") & (passenger == "NO")) ~ "Bicycle - Motorcycle",
+    ((automobile == "NO") & (bicycle == "YES") & (pedestrian == "NO") & (motorcycle == "NO") & (passenger == "YES")) ~ "Bicycle - Public Transit",
+    ((automobile == "NO") & (bicycle == "NO") & (pedestrian == "YES") & (motorcycle == "YES") & (passenger == "NO")) ~ "Pedestrian - Motorcycle",
+    ((automobile == "NO") & (bicycle == "NO") & (pedestrian == "YES") & (motorcycle == "NO") & (passenger == "YES")) ~ "Pedestrian - Public Transit",
+    ((automobile == "NO") & (bicycle == "NO") & (pedestrian == "NO") & (motorcycle == "YES") & (passenger == "YES")) ~ "Motorcycle - Public Transit",
+    ((automobile == "N/R") & (bicycle == "N/R") & (pedestrian == "N/R") & (motorcycle == "N/R") & (passenger == "N/R")) ~ "N/R",
+    .default = "Multi-Vehicle Collision"
+  ))
+
+# make a summary table for the number of collisions each vehicle type was involved in
+collisions_long |>
+  group_by(vehicle_type) |>
+  filter(involved_yesno == "YES") |>
+  count() |>
+  ungroup() |>
+  mutate("Percent of Total Collisions" = round(n/sum(n)*100, 2)) |>
+  arrange(desc(n)) |>
+  mutate("vehicle_type" = case_when(
+    vehicle_type == "automobile" ~ "Automobile",
+    vehicle_type == "bicycle" ~ "Bicycle",
+    vehicle_type == "motorcycle" ~ "Motorcycle",
+    vehicle_type == "passenger" ~ "Public Transit Vehicle",
+    vehicle_type == "pedestrian" ~ "Pedestrian")) |>
+  rename("Number of Collisions" = n, "Vehicle Type" = vehicle_type) |>
+  kable() |>
+  kable_styling(latex_options = "striped")
+
+# make a summary table for the most frequent varieties of collisions
+collision_combos_table <- collisions_cleaned |>
+  group_by(vehicles_involved) |>
+  count() |>
+  ungroup() |>
+  mutate("Percent of Total Collisions" = round(n/sum(n)*100, 2)) |>
+  filter_out(vehicles_involved == "N/R" | vehicles_involved == "NA") |>
+  arrange(desc(n)) |>
+  rename("Number of Collisions" = n, "Vehicle Involvement" = vehicles_involved) 
+
+table1 <- kable(collision_combos_table[1:8,]) |>
+  kable_styling(latex_options = "striped")
+table1
+
+table2 <- kable(collision_combos_table[9:16,]) |>
+  kable_styling(latex_options = "striped")
+table2
+  
